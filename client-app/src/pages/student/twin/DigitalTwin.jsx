@@ -1,100 +1,74 @@
-import { Line } from "react-chartjs-2";
-import { useEffect, useState } from "react";
-import api from "../../../api/axios";
+import { useSim } from "../../../simulations/SimulationContext";
+import { History, BarChart3 } from "lucide-react";
 import "./digitalTwin.css";
 
 export default function DigitalTwin() {
-  const [twin, setTwin] = useState(null);
-
-  useEffect(() => {
-    api.get("/twins/self").then(res => setTwin(res.data));
-  }, []);
-
-  if (!twin) return <p>Loading Digital Twin...</p>;
-
-  const chartData = {
-    labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
-    datasets: [
-      {
-        label: "Attendance",
-        data: [92, 90, 94, 93],
-        borderColor: "#34D399",
-        backgroundColor: "rgba(52,211,153,0.15)",
-        fill: true,
-        tension: 0.4
-      },
-      {
-        label: "Academic",
-        data: [70, 72, 75, 78],
-        borderColor: "#6C63FF",
-        backgroundColor: "rgba(108,99,255,0.15)",
-        fill: true,
-        tension: 0.4
-      },
-      {
-        label: "Behavior",
-        data: [85, 80, 82, 88],
-        borderColor: "#F59E0B",
-        backgroundColor: "rgba(245,158,11,0.15)",
-        fill: true,
-        tension: 0.4
-      }
-    ]
-  };
+  const { activeStudent: s } = useSim();
+  const t = s.twin;
 
   return (
     <div className="twin-page">
-      {/* HEADER */}
       <div className="twin-header">
-        <div>
-          <h1>Timeline Overview ✨</h1>
-          <p>Track your academic journey and performance trends.</p>
-        </div>
-        <span className="status-pill">System Online</span>
+        <h1>{s.name}'s Academic Reports</h1>
+        <p>Explore historical performance and term-by-term report summaries.</p>
       </div>
 
-      {/* METRIC CARDS */}
-      <section className="twin-metrics">
-        <div className="metric-card">
-          <p>Attendance Rate</p>
-          <h2>96%</h2>
-          <span className="metric-positive">+2.4%</span>
-        </div>
+      <div className="twin-grid">
+        {/* Historical Progress Timeline */}
+        <section className="timeline-card">
+          <h3><div className="icon-box"><History size={20} /></div> Historical Progress Timeline</h3>
 
-        <div className="metric-card">
-          <p>Academic Score</p>
-          <h2>78 / 100</h2>
-          <span className="metric-neutral">Stable</span>
-        </div>
-
-        <div className="metric-card warning">
-          <p>Behavior Index</p>
-          <h2>88 / 100</h2>
-          <span className="metric-warning">High</span>
-        </div>
-      </section>
-
-      {/* CHART */}
-      <section className="twin-chart-card">
-        <div className="chart-title">
-          <h3>Performance Trends</h3>
-          <div className="chart-legend">
-            <span className="dot green">Attendance</span>
-            <span className="dot blue">Academic</span>
-            <span className="dot orange">Behavior</span>
+          <div className="timeline-list">
+            {t.terms.map((item, i) => (
+              <div className="timeline-item" key={i}>
+                <div className={`dot ${i === 0 ? "active" : ""}`}></div>
+                <div className={`term-box ${i === 0 ? "active" : ""}`}>
+                  <span className="term-name">{item.term}</span>
+                  <span className="term-grade">Overall: {item.grade}</span>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        </section>
 
-        <div className="chart-wrapper">
-          <Line
-            data={chartData}
-            options={{
-              maintainAspectRatio: false,
-              plugins: { legend: { display: false } }
-            }}
-          />
-        </div>
-      </section>
+        {/* Report Summary */}
+        <section className="summary-card">
+          <header className="summary-header">
+            <div className="icon-box"><BarChart3 size={24} /></div>
+            <div>
+              <h3>{t.selectedTerm} Report Summary</h3>
+            </div>
+          </header>
+
+          <p className="summary-text">{t.summary}</p>
+
+          <footer className="stats-row">
+            <div className="stat-item">
+              <span className="label">Overall Grade:</span>
+              <span className="value green">{t.grade}</span>
+            </div>
+            <div className="stat-item">
+              <span className="label">Attendance:</span>
+              <span className="value">{t.attendance}</span>
+            </div>
+            <div className="stat-item">
+              <span className="label">Behavior:</span>
+              <span
+                className="value"
+                style={{
+                  color: t.behavior === "Exceptional" || t.behavior === "Good"
+                    ? "#10b981"
+                    : t.behavior === "Critical"
+                    ? "#ef4444"
+                    : "#f59e0b",
+                }}
+              >
+                {t.behavior}
+              </span>
+            </div>
+          </footer>
+        </section>
+      </div>
     </div>
   );
 }

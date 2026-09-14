@@ -31,7 +31,7 @@ export default function Login() {
       <div className="login-card">
 
         <div className="login-logo">
-          <div className="logo-icon">◎</div>
+          <div className="logo-icon">📦</div>
         </div>
 
         <h1 className="login-title">Welcome Back</h1>

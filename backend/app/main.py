@@ -25,7 +25,7 @@ app = FastAPI(
     title="Digital Class Twin Backend",
     swagger_ui_parameters={"persistAuthorization": True}
 )
-init_db()
+# init_db()
 
 register_error_handlers(app)
 

@@ -1,0 +1,87 @@
+import { useState } from "react";
+import { useSim } from "../../simulations/SimulationContext";
+import { ChevronDown, ChevronUp, FlaskConical } from "lucide-react";
+import "./SimSwitcher.css";
+
+export default function SimSwitcher() {
+  const {
+    activeRole, setActiveRole,
+    studentIdx, setStudentIdx,
+    parentIdx,  setParentIdx,
+    activeStudent, activeParent,
+    studentProfiles, parentProfiles,
+  } = useSim();
+
+  const [open, setOpen] = useState(false);
+
+  const current = activeRole === "student" ? activeStudent : activeParent;
+
+  return (
+    <div className={`sim-switcher ${open ? "sim-open" : ""}`}>
+      {/* TOGGLE BUTTON */}
+      <button className="sim-toggle" onClick={() => setOpen(o => !o)}>
+        <FlaskConical size={18} />
+        <span>Simulation Mode</span>
+        {open ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+      </button>
+
+      {open && (
+        <div className="sim-panel">
+          <p className="sim-title">Demo Simulation Switcher</p>
+
+          {/* Role Tabs */}
+          <div className="sim-role-tabs">
+            <button
+              className={`sim-role-btn ${activeRole === "student" ? "active" : ""}`}
+              onClick={() => setActiveRole("student")}
+            >
+              👩‍🎓 Student
+            </button>
+            <button
+              className={`sim-role-btn ${activeRole === "parent" ? "active" : ""}`}
+              onClick={() => setActiveRole("parent")}
+            >
+              👨‍👩‍👧 Parent
+            </button>
+          </div>
+
+          {/* Profile List */}
+          <div className="sim-profile-list">
+            {activeRole === "student"
+              ? studentProfiles.map((p, i) => (
+                  <button
+                    key={p.id}
+                    className={`sim-profile-btn ${studentIdx === i ? "selected" : ""}`}
+                    onClick={() => setStudentIdx(i)}
+                  >
+                    <span className="sim-profile-name">{p.name}</span>
+                    <span className="sim-tag" style={{ background: p.tagColor + "22", color: p.tagColor }}>
+                      {p.tag}
+                    </span>
+                  </button>
+                ))
+              : parentProfiles.map((p, i) => (
+                  <button
+                    key={p.id}
+                    className={`sim-profile-btn ${parentIdx === i ? "selected" : ""}`}
+                    onClick={() => setParentIdx(i)}
+                  >
+                    <span className="sim-profile-name">{p.childName}'s Parent</span>
+                    <span className="sim-tag" style={{ background: p.tagColor + "22", color: p.tagColor }}>
+                      {p.tag}
+                    </span>
+                  </button>
+                ))
+            }
+          </div>
+
+          <div className="sim-footer">
+            <span className="sim-active-label">
+              Active: <strong>{current?.name || current?.childName}</strong>
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

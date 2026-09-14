@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import StudentLayout from "../../layouts/StudentLayout";
+import Layout from "../../layouts/Layout";
 
 import Dashboard from "./dashboard/Dashboard";
 import DigitalTwin from "./twin/DigitalTwin";
@@ -11,7 +11,7 @@ import Profile from "./profile/Profile";
 export default function StudentRoutes() {
   return (
     <Routes>
-      <Route element={<StudentLayout />}>
+      <Route element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="twin" element={<DigitalTwin />} />
         <Route path="risk" element={<RiskInsights />} />

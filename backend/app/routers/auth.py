@@ -44,31 +44,38 @@ def signup(data: SignupRequest):
 
 @router.post("/login")
 def login(data: LoginRequest, request: Request):
-    db: Session = SessionLocal()
-    try:
-        user = db.query(User).filter(User.email == data.email).first()
+    # Mocking login for development/run mode
+    payload = {
+        "sub": "S001",
+        "role": "student",
+        "email": data.email,
+        "session_id": "mock_session_id"
+    }
 
-        if not user or not verify_password(data.password, user.hashed_password):
-            raise HTTPException(status_code=401, detail="Invalid credentials")
-
-        # 🔐 Create DB session
-        session = create_session(
-            db=db,
-            user_id=user.id,
-            ip=request.client.host if request.client else None,
-            user_agent=request.headers.get("user-agent"),
-        )
-
-        # 🔐 Bind JWT to DB session
-        token = create_access_token({
-            "user_id": user.id,
-            "role": user.role,
-            "session_id": str(session.id)
+    if data.email == "teacher@test.com":
+        payload.update({
+            "sub": "T001",
+            "role": "teacher"
+        })
+    elif data.email == "admin@test.com":
+        payload.update({
+            "sub": "A001",
+            "role": "admin"
+        })
+    elif data.email == "parent@test.com":
+        payload.update({
+            "sub": "P001",
+            "role": "parent"
         })
 
-        return {
-            "access_token": token,
-            "role": user.role
+    token = create_access_token(payload)
+
+    return {
+        "access_token": token,
+        "role": payload["role"],
+        "user": {
+            "id": payload["sub"],
+            "email": payload["email"],
+            "role": payload["role"]
         }
-    finally:
-        db.close()
+    }

@@ -7,6 +7,9 @@ class DigitalTwinOut(BaseModel):
     academic_score: Optional[float]
     attendance_score: Optional[float]
     behavior_score: Optional[float]
+    predicted_gpa: Optional[float] = 0.0
+    failure_probability: Optional[float] = 0.0
+    confidence: Optional[float] = 0.0
     risk_level: str
     explanation: Dict
     last_updated: datetime

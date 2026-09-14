@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alerts &amp; Notifications - Urgency-First Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .fit-to-window {
+            height: calc(100dvh - 56px);}
+        @media (min-width: 1024px) {.fit-to-window {
+                height: 100dvh;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body min-h-screen transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">notifications</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+            Alerts &amp; Notifications
+        </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex h-screen overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">person_outline</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                    Digital Twin
+                </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Parent Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">layers</span>
+                Digital Twin
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">notifications</span>
+                Alerts &amp; Notifications
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">insights</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">chat</span>
+                Communication
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">settings</span>
+                Profile &amp; Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 h-full overflow-y-auto lg:overflow-hidden p-4 lg:p-8 relative flex flex-col fit-to-window">
+<div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    Your Action Required
+                </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                    Critical information requiring your immediate attention.
+                </p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-1 px-4 py-2 bg-indigo-500 text-white rounded-xl shadow hover:bg-indigo-600 transition-colors text-sm">
+<span class="material-symbols-outlined text-base">history</span>
+                    Alert History
+                </button>
+</div>
+</div>
+<section class="grid grid-cols-1 gap-4 mb-6">
+<div class="bg-red-100 dark:bg-red-900/40 border border-red-300 dark:border-red-700 text-red-800 dark:text-red-200 rounded-2xl shadow-md p-5 flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<span class="material-icons-round text-red-500 text-3xl">warning</span>
+<div>
+<h3 class="font-bold text-xl mb-1 dark:text-red-100">Critical Risk Alert: Behavioral Concern</h3>
+<p class="text-sm dark:text-red-300">
+                            [Child's Name] exhibited an unusual level of withdrawal during group activities today. Further observation is recommended.
+                        </p>
+</div>
+</div>
+<div class="flex justify-end mt-2">
+<button class="w-full sm:w-auto px-6 py-3 bg-red-600 text-white rounded-xl text-base font-semibold hover:bg-red-700 transition-colors shadow-lg">
+                        Acknowledge Alert
+                    </button>
+</div>
+</div>
+<div class="bg-orange-100 dark:bg-orange-900/40 border border-orange-300 dark:border-orange-700 text-orange-800 dark:text-orange-200 rounded-2xl shadow-md p-5 flex flex-col gap-4">
+<div class="flex items-start gap-3">
+<span class="material-icons-round text-orange-500 text-3xl">error</span>
+<div>
+<h3 class="font-bold text-xl mb-1 dark:text-orange-100">System Notification: Login Attempt</h3>
+<p class="text-sm dark:text-orange-300">
+                            Unrecognized login attempt detected on your account at 10:30 AM. Please verify your activity.
+                        </p>
+</div>
+</div>
+<div class="flex justify-end mt-2">
+<button class="w-full sm:w-auto px-6 py-3 bg-orange-600 text-white rounded-xl text-base font-semibold hover:bg-orange-700 transition-colors shadow-lg">
+                        Acknowledge &amp; Review
+                    </button>
+</div>
+</div>
+</section>
+<section class="mb-6 flex-grow flex flex-col">
+<h3 class="font-bold text-lg text-gray-800 dark:text-white mb-3 flex items-center gap-2">
+<span class="material-icons-round text-indigo-500">info</span> Other Updates
+        </h3>
+<div class="flex-grow flex items-stretch overflow-x-auto space-x-4 pb-4 no-scrollbar">
+<div class="min-w-[70vw] sm:min-w-[50vw] md:min-w-[40vw] lg:min-w-[300px] flex-shrink-0 bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-round text-indigo-500 text-lg">school</span>
+<h4 class="font-semibold text-base text-gray-800 dark:text-white">School Notification: Parent-Teacher Meeting</h4>
+</div>
+<p class="text-gray-600 dark:text-indigo-200 text-sm mb-3 line-clamp-3">
+                        Reminder: Parent-Teacher consultations for [Child's Name]'s class are scheduled for next Tuesday, Nov 15th, from 3 PM to 6 PM. Please book your slot.
+                    </p>
+</div>
+<div class="mt-auto">
+<button class="w-full px-4 py-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-100 rounded-xl text-sm hover:bg-indigo-200 dark:hover:bg-indigo-700 transition-colors font-medium">
+                        View Details
+                    </button>
+</div>
+</div>
+<div class="min-w-[70vw] sm:min-w-[50vw] md:min-w-[40vw] lg:min-w-[300px] flex-shrink-0 bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-round text-green-500 text-lg">check_circle</span>
+<h4 class="font-semibold text-base text-gray-800 dark:text-white">System Update: Profile Sync Complete</h4>
+</div>
+<p class="text-gray-600 dark:text-indigo-200 text-sm mb-3 line-clamp-3">
+                        Your profile changes, including notification preferences, have been successfully synchronized across all devices.
+                    </p>
+</div>
+<div class="mt-auto">
+<button class="w-full px-4 py-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-100 rounded-xl text-sm hover:bg-indigo-200 dark:hover:bg-indigo-700 transition-colors font-medium">
+                        View Details
+                    </button>
+</div>
+</div>
+<div class="min-w-[70vw] sm:min-w-[50vw] md:min-w-[40vw] lg:min-w-[300px] flex-shrink-0 bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-round text-yellow-500 text-lg">event_note</span>
+<h4 class="font-semibold text-base text-gray-800 dark:text-white">School Notification: Field Trip Consent</h4>
+</div>
+<p class="text-gray-600 dark:text-indigo-200 text-sm mb-3 line-clamp-3">
+                        Consent forms for the upcoming history museum field trip are due by Friday. Please submit electronically.
+                    </p>
+</div>
+<div class="mt-auto">
+<button class="w-full px-4 py-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-100 rounded-xl text-sm hover:bg-indigo-200 dark:hover:bg-indigo-700 transition-colors font-medium">
+                        View Details
+                    </button>
+</div>
+</div>
+<div class="min-w-[70vw] sm:min-w-[50vw] md:min-w-[40vw] lg:min-w-[300px] flex-shrink-0 bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-icons-round text-blue-500 text-lg">build</span>
+<h4 class="font-semibold text-base text-gray-800 dark:text-white">System Update: Maintenance Scheduled</h4>
+</div>
+<p class="text-gray-600 dark:text-indigo-200 text-sm mb-3 line-clamp-3">
+                        Scheduled system maintenance will occur this Sunday from 2 AM to 4 AM, possibly impacting access.
+                    </p>
+</div>
+<div class="mt-auto">
+<button class="w-full px-4 py-2 bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-100 rounded-xl text-sm hover:bg-indigo-200 dark:hover:bg-indigo-700 transition-colors font-medium">
+                        View Details
+                    </button>
+</div>
+</div>
+</div>
+</section>
+<div class="lg:col-span-3 text-center pt-2 pb-4">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                Protected by Digital Twin Security Systems © 2023
+            </p>
+</div>
+</main>
+</div>
+<script>
+    // Toggle Sidebar Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    function toggleSidebar() {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    menuToggle.addEventListener('click', toggleSidebar);
+    menuClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+</script>
+</body></html>

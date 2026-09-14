@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Dashboard - Communication</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body min-h-screen transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">person_outline</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+            Digital Twin
+        </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex h-screen overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">person_outline</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                    Digital Twin
+                </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Parent Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">layers</span>
+                Digital Twin
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">notifications</span>
+                Alerts &amp; Notifications
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">insights</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">chat</span>
+                Communication
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">settings</span>
+                Profile &amp; Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 h-full overflow-y-auto p-4 lg:p-8 relative no-scrollbar">
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    Your Communication Inbox
+                </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                    Prioritized messages and announcements from the school.
+                </p>
+</div>
+<div class="flex gap-2">
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6 mb-6">
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500 fill-1">priority_high</span> Pending Actions
+                </h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-icons-round text-orange-400 text-lg mt-0.5">warning</span>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">New Consent Form: Field Trip</p>
+<p class="text-gray-600 dark:text-indigo-200 text-sm">
+                                Requires your acknowledgement by <span class="font-medium text-red-500">October 25th</span>.
+                            </p>
+<button class="mt-2 text-primary dark:text-indigo-300 text-sm font-medium hover:underline">Review &amp; Acknowledge</button>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-icons-round text-indigo-500 text-lg mt-0.5">mail</span>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Unread Message from Mrs. Smith (Grade 5 Teacher)</p>
+<p class="text-gray-600 dark:text-indigo-200 text-sm">
+                                Regarding [Child's Name]'s project submission.
+                            </p>
+<button class="mt-2 text-primary dark:text-indigo-300 text-sm font-medium hover:underline">Read Message</button>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-icons-round text-red-500 text-lg mt-0.5">error</span>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Critical Alert: School Closure Tomorrow</p>
+<p class="text-gray-600 dark:text-indigo-200 text-sm">
+                                Due to unforeseen weather conditions. Remote learning details will follow.
+                            </p>
+<button class="mt-2 text-primary dark:text-indigo-300 text-sm font-medium hover:underline">View Announcement</button>
+</div>
+</li>
+</ul>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-indigo-500">description</span> Latest Communications
+                </h3>
+<div class="grid grid-cols-1 gap-4">
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/20 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-gray-100 dark:hover:bg-indigo-900/40 transition-colors">
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-gray-800 dark:text-white truncate">School Office</p>
+<p class="text-sm text-gray-600 dark:text-indigo-200 truncate">
+                                Reminder: Parent-Teacher Conference sign-ups are now open...
+                            </p>
+</div>
+<div class="flex items-center gap-2 pl-4">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 text-base" title="Read">check_circle</span>
+</div>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/20 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-gray-100 dark:hover:bg-indigo-900/40 transition-colors">
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-gray-800 dark:text-white truncate">Ms. Davis (Art Teacher)</p>
+<p class="text-sm text-gray-600 dark:text-indigo-200 truncate">
+                                [Child's Name] excelled in this week's art project...
+                            </p>
+</div>
+<div class="flex items-center gap-2 pl-4">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 text-base" title="Unread">radio_button_unchecked</span>
+</div>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/20 rounded-xl flex items-center justify-between group cursor-pointer hover:bg-gray-100 dark:hover:bg-indigo-900/40 transition-colors">
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-gray-800 dark:text-white truncate">Principal Sharma</p>
+<p class="text-sm text-gray-600 dark:text-indigo-200 truncate">
+                                Upcoming school event: Annual Science Fair details...
+                            </p>
+</div>
+<div class="flex items-center gap-2 pl-4">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 text-base" title="Read">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-3 text-center pt-8 pb-4">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                Protected by Digital Twin Security Systems © 2023
+            </p>
+</div>
+</main>
+</div>
+<script>
+    // Toggle Sidebar Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    function toggleSidebar() {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    menuToggle.addEventListener('click', toggleSidebar);
+    menuClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    // Chart.js Configuration
+    // No charts needed for the Communication page, keeping this empty or removing it.
+    // Removed all previous chart configurations.
+</script>
+</body></html>

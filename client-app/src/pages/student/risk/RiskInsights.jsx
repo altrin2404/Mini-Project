@@ -1,87 +1,138 @@
 import { Line } from "react-chartjs-2";
-import { useEffect, useState } from "react";
-import api from "../../../api/axios";
+import { useSim } from "../../../simulations/SimulationContext";
+import { Activity, PieChart, GraduationCap, Clock } from "lucide-react";
 import "./riskInsights.css";
 
 export default function RiskInsights() {
-  const [risk, setRisk] = useState(null);
-
-  useEffect(() => {
-    api.get("/insights/self")
-      .then(res => setRisk(res.data))
-      .catch(() => setRisk(null));
-  }, []);
-
-  if (!risk) {
-    return <p style={{ padding: 24 }}>Loading risk insights...</p>;
-  }
+  const { activeStudent: s } = useSim();
+  const r = s.risk;
 
   const trendData = {
     labels: ["Jan", "Feb", "Mar", "Apr"],
     datasets: [
       {
         label: "Risk Score",
-        data: risk.trend ?? [62, 61, 66, 77],
-        borderColor: "#7c3aed",
-        backgroundColor: "rgba(124,58,237,0.2)",
+        data: r.trend,
+        borderColor: r.riskColor,
+        backgroundColor: r.riskColor + "22",
         tension: 0.4,
         fill: true,
-        pointRadius: 4,
+        pointRadius: 6,
+        pointBackgroundColor: "white",
+        pointBorderColor: r.riskColor,
+        pointBorderWidth: 2,
       },
     ],
   };
+
+  const total = r.academic + r.attendance + r.behavior;
 
   return (
     <div className="risk-page">
       <div className="risk-header">
         <div>
           <h1>Risk Insights</h1>
-          <p>Detailed analysis of student risk factors and trends.</p>
+          <p>
+            Detailed ML-computed risk analysis for <strong>{s.name}</strong>.
+          </p>
+          <span className="status-pill" style={{ background: r.riskColor + "22", color: r.riskColor }}>
+            {r.riskLevel} Risk
+          </span>
         </div>
-        <span className="status">● System Online</span>
       </div>
 
       <div className="risk-grid">
         {/* Risk Trend */}
-        <div className="card large">
-          <h3>Risk Trend</h3>
-          <Line
-            data={trendData}
-            options={{ maintainAspectRatio: false }}
-          />
+        <div className="risk-card">
+          <div className="risk-card-header">
+            <h3><div className="icon-box"><Activity size={20} /></div> Risk Trend</h3>
+            <button className="btn-score" style={{ background: r.riskColor + "22", color: r.riskColor }}>
+              {r.riskLevel} Risk
+            </button>
+          </div>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>Last 4 Months</p>
+          <div className="chart-container">
+            <Line
+              data={trendData}
+              options={{
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: { min: 0, max: 100, border: { display: false }, grid: { color: "#f1f5f9" } },
+                  x: { border: { display: false }, grid: { display: false } },
+                },
+              }}
+            />
+          </div>
         </div>
 
         {/* Risk Breakdown */}
-        <div className="card">
-          <h3>Risk Breakdown</h3>
-
-          <div className="bar-row">
-            <span>Academic</span><span>{risk.academic}%</span>
-            <div className="bar blue" style={{ width: `${risk.academic}%` }} />
+        <div className="risk-card">
+          <div className="risk-card-header">
+            <h3><div className="icon-box"><PieChart size={20} /></div> Risk Breakdown</h3>
+            <a href="#" style={{ color: "#7c3aed", fontSize: 14, fontWeight: 600 }}>View Details</a>
           </div>
 
-          <div className="bar-row">
-            <span>Attendance</span><span>{risk.attendance}%</span>
-            <div className="bar green" style={{ width: `${risk.attendance}%` }} />
+          <div className="breakdown-list">
+            {/* Academic */}
+            <div className="breakdown-item">
+              <div className="breakdown-info">
+                <div className="breakdown-label">
+                  <div className="name" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ background: "#dbeafe", color: "#3b82f6", padding: 6, borderRadius: 8 }}><GraduationCap size={16} /></div>
+                    Academic
+                  </div>
+                  <span className="sub">Category</span>
+                </div>
+                <span className="breakdown-percent">{r.academic}%</span>
+              </div>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${r.academic}%`, background: "#3b82f6" }}></div>
+              </div>
+            </div>
+
+            {/* Attendance */}
+            <div className="breakdown-item">
+              <div className="breakdown-info">
+                <div className="breakdown-label">
+                  <div className="name" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ background: "#dcfce7", color: "#10b981", padding: 6, borderRadius: 8 }}><Clock size={16} /></div>
+                    Attendance
+                  </div>
+                  <span className="sub">Category</span>
+                </div>
+                <span className="breakdown-percent" style={{ color: "#10b981" }}>{r.attendance}%</span>
+              </div>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${r.attendance}%`, background: "#10b981" }}></div>
+              </div>
+            </div>
+
+            {/* Behavior */}
+            <div className="breakdown-item">
+              <div className="breakdown-info">
+                <div className="breakdown-label">
+                  <div className="name" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ background: "#fef3c7", color: "#f59e0b", padding: 6, borderRadius: 8 }}>⚡</div>
+                    Behavior
+                  </div>
+                  <span className="sub">Category</span>
+                </div>
+                <span className="breakdown-percent" style={{ color: "#f59e0b" }}>{r.behavior}%</span>
+              </div>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${r.behavior}%`, background: "#f59e0b" }}></div>
+              </div>
+            </div>
           </div>
 
-          <div className="bar-row">
-            <span>Behavior</span><span>{risk.behavior}%</span>
-            <div className="bar purple" style={{ width: `${risk.behavior}%` }} />
+          {/* Composite */}
+          <div style={{ marginTop: 24, padding: "16px 20px", background: "#f8fafc", borderRadius: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: 14, color: "#64748b" }}>Composite Risk Score</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: r.riskColor }}>
+              {Math.round((r.academic + r.attendance + r.behavior) / 3)}%
+            </span>
           </div>
-        </div>
-
-        {/* Attention Needed */}
-        <div className="card highlight">
-          <h3>Attention Needed</h3>
-          <p>Academic risk has increased by 5% this month.</p>
-          <button>Review Now</button>
-        </div>
-
-        {/* Pending Review */}
-        <div className="card">
-          <h3>Pending Review</h3>
-          <p>2 incidents unclassified</p>
         </div>
       </div>
     </div>

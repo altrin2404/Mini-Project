@@ -59,13 +59,22 @@ def forecast_confidence(features: Dict) -> float:
     return round(max(confidence, 0.1), 2)
 
 
-# ─────────────────────────────
-# FINAL FORECAST PAYLOAD
-# ─────────────────────────────
 def generate_forecast(features: Dict) -> Dict:
+    # Aggregation bridge
+    attendance = features.get("attendance", [])
+    scores = features.get("scores", [])
+    
+    agg_features = {
+        "attendance_pct": (sum(attendance) / len(attendance) * 10) if attendance else 0, # Scale to 0-10
+        "academic_avg": (sum(scores) / len(scores) * 10) if scores else 0, # Scale to 0-10
+        "event_count": len(attendance) + len(scores) + len(features.get("behavior", [])),
+        "volatility": 0.1, # Default or calculated
+        "behavior_score": sum(features.get("behavior", [])) / len(features.get("behavior", [])) if features.get("behavior") else 0.5
+    }
+
     return {
-        "predicted_gpa": predict_gpa(features),
-        "failure_probability": failure_probability(features),
-        "confidence": forecast_confidence(features),
-        "subjects": subject_forecast(features)
+        "predicted_gpa": predict_gpa(agg_features),
+        "failure_probability": failure_probability(agg_features),
+        "confidence": forecast_confidence(agg_features),
+        "subjects": subject_forecast(agg_features)
     }

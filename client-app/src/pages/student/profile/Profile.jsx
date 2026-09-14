@@ -1,74 +1,77 @@
+import { User, Shield, MapPin, Mail, Phone, ChevronRight } from "lucide-react";
 import "./profile.css";
 
 export default function Profile({ user }) {
   return (
     <div className="profile-page">
       <header className="profile-header">
-        <div>
-          <h1>Profile</h1>
-          <p>Manage your account details and preferences.</p>
-        </div>
-
-        <div className="user-pill">
-          <span>{user?.email}</span>
-          <div className="avatar">S</div>
-        </div>
+        <h1>Profile</h1>
+        <p>Manage your account details and preferences.</p>
       </header>
 
-      <div className="profile-banner">
-        <div className="avatar-lg">👤</div>
-        <div>
+      <section className="profile-hero">
+        <div className="avatar-large">👨‍🎓</div>
+        <div className="hero-info">
           <h2>{user?.name || "Student User"}</h2>
           <p>Computer Science Department</p>
+          <span className="role-tag">STUDENT</span>
         </div>
-        <button className="primary">Edit Profile</button>
-      </div>
+        <button className="btn-edit">Edit Profile</button>
+      </section>
 
-      <div className="info-grid">
-        <div className="info-card">
-          <strong>User ID (UUID)</strong>
-          <p>{user?.id}</p>
-        </div>
-
-        <div className="info-card">
-          <strong>Assigned Role</strong>
-          <span className="status active">Student</span>
-        </div>
-      </div>
-
-      <div className="panel-grid">
-        <div className="panel">
+      <div className="profile-grid">
+        <section className="profile-card">
           <h3>Personal Information</h3>
+          
+          <div className="input-row">
+            <label>Full Name</label>
+            <input type="text" value={user?.name || "Student User"} disabled />
+          </div>
 
-          <label>Full Name</label>
-          <input value={user?.name || ""} disabled />
+          <div className="input-row">
+            <label>Email Address</label>
+            <input type="email" value={user?.email || "student@test.com"} disabled />
+          </div>
 
-          <label>Email</label>
-          <input value={user?.email || ""} disabled />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+             <div className="input-row">
+               <label>Phone Number</label>
+               <input type="text" value="+1 (555) 000-0000" disabled />
+             </div>
+             <div className="input-row">
+                <label>Location</label>
+                <input type="text" value="Campus Dorm A" disabled />
+             </div>
+          </div>
+        </section>
 
-          <label>Phone</label>
-          <input value="+1 (555) 123-4567" disabled />
-
-          <label>Location</label>
-          <input value="Campus Dorm A, Room 101" disabled />
-        </div>
-
-        <div className="panel">
+        <section className="profile-card">
           <h3>Account Security</h3>
+          
+          <div className="security-item">
+            <span>Change Password</span>
+            <ChevronRight size={16} />
+          </div>
 
-          <div className="security-item">Password →</div>
-          <div className="security-item">Sessions (2 devices)</div>
+          <div className="security-item">
+            <span>Two-Factor Auth</span>
+            <span style={{ color: '#10b981', fontWeight: 600 }}>Enabled</span>
+          </div>
 
-          <p className="login-log">
+          <div className="security-item">
+            <span>Active Sessions</span>
+            <span style={{ color: 'var(--text-muted)' }}>2 Devices</span>
+          </div>
+
+          <div className="log-footer">
             Recent Login: Today, 09:41 AM (IP: 192.168.1.1)
-          </p>
-        </div>
+          </div>
+        </section>
       </div>
-
-      <div className="privacy">
-        Your profile information is securely stored and used only for Digital Twin
-        verification purposes.
-      </div>
+      
+      <p style={{ marginTop: 40, fontSize: 13, color: 'var(--text-muted)', textAlign: 'center' }}>
+         Your profile information is securely stored and used only for Digital Twin verification purposes.
+      </p>
     </div>
   );
 }

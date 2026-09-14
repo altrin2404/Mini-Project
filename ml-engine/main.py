@@ -54,7 +54,8 @@ def run():
         update_twin(
             db=db,
             child_id=child_id,
-            scores=scores
+            scores=scores,
+            forecast=forecasts
         )
 
 

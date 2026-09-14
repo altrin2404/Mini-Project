@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Profile - Digital Twin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: 100dvh;display: flex;flex-direction: column;}
+    main {
+        flex: 1;display: flex;
+        flex-direction: column;
+        overflow: hidden;}
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">school</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+            Digital Twin
+        </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">school</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                    Digital Twin
+                </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Teacher Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">trending_up</span>
+                Risk Insights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">edit_note</span>
+                Submit Events
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">notifications_active</span>
+                Alerts
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">bar_chart</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">account_circle</span>
+                Profile
+            </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30 hidden lg:block">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 p-4 lg:p-8 relative flex flex-col overflow-hidden">
+<div class="flex-shrink-0 mb-6 lg:mb-8">
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    Teacher Profile
+                </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                    Manage your account and view your teaching assignments.
+                </p>
+</div>
+<div class="flex-shrink-0 bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6 mb-6 overflow-x-auto no-scrollbar flex items-center space-x-4">
+<div class="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-semibold">
+        JD
+    </div>
+<div class="flex-grow">
+<h3 class="text-xl font-bold text-gray-800 dark:text-white">Jane Doe</h3>
+<p class="text-gray-600 dark:text-indigo-200">Math &amp; Science Teacher</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">jane.doe@example.com</p>
+</div>
+<div class="flex-shrink-0 text-right">
+<p class="text-gray-600 dark:text-indigo-200">Employee ID: <span class="font-medium">TS9876</span></p>
+<p class="text-gray-600 dark:text-indigo-200">Department: <span class="font-medium">STEM</span></p>
+</div>
+</div>
+<div class="flex-1 flex flex-col bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 overflow-hidden">
+<div class="flex-shrink-0 border-b border-gray-100 dark:border-indigo-900/50">
+<div class="flex text-sm font-medium text-center text-gray-500 dark:text-gray-400 overflow-x-auto no-scrollbar">
+<button class="flex-1 inline-flex items-center justify-center p-4 border-b-2 border-indigo-500 dark:border-white text-indigo-600 dark:text-white rounded-t-lg group" id="tab-classes">
+<span class="material-icons-round text-lg mr-2">school</span> Classes
+            </button>
+<button class="flex-1 inline-flex items-center justify-center p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:hover:border-indigo-700 rounded-t-lg group" id="tab-settings">
+<span class="material-icons-round text-lg mr-2">settings</span> Settings
+            </button>
+<button class="flex-1 inline-flex items-center justify-center p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:hover:border-indigo-700 rounded-t-lg group" id="tab-activity">
+<span class="material-icons-round text-lg mr-2">event</span> Activity
+            </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 no-scrollbar">
+<div id="content-classes">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-indigo-500">menu_book</span> Assigned Classes
+            </h3>
+<div class="space-y-4">
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/30 rounded-lg flex justify-between items-center">
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Algebra I (Grade 9)</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">Period 1 &amp; 3</p>
+</div>
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300">chevron_right</span>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/30 rounded-lg flex justify-between items-center">
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Biology (Grade 10)</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">Period 2 &amp; 4</p>
+</div>
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300">chevron_right</span>
+</div>
+<div class="p-4 bg-gray-50 dark:bg-indigo-900/30 rounded-lg flex justify-between items-center">
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Geometry (Grade 9)</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">Period 5</p>
+</div>
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300">chevron_right</span>
+</div>
+</div>
+<button class="mt-6 w-full bg-indigo-500 text-white py-2 rounded-lg text-sm hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2">
+<span class="material-icons-round text-base">add_box</span> Request Class Change
+            </button>
+</div>
+<div class="hidden" id="content-settings">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-purple-500">tune</span> Preferences &amp; Settings
+            </h3>
+<div class="space-y-4">
+<div class="bg-gray-50 dark:bg-indigo-900/30 rounded-lg p-4">
+<label class="flex items-center justify-between cursor-pointer" for="notification-toggle">
+<span class="text-gray-800 dark:text-white font-medium">Email Notifications</span>
+<input checked="" class="sr-only peer" id="notification-toggle" type="checkbox"/>
+<div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+</label>
+<p class="text-sm text-gray-500 dark:text-indigo-400 mt-1">Receive alerts and updates via email.</p>
+</div>
+<div class="bg-gray-50 dark:bg-indigo-900/30 rounded-lg p-4">
+<p class="font-medium text-gray-800 dark:text-white mb-2">Theme</p>
+<div class="flex gap-4">
+<button class="px-4 py-2 rounded-lg bg-indigo-500 text-white text-sm">Light</button>
+<button class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-indigo-800/50 text-gray-700 dark:text-indigo-200 text-sm">Dark</button>
+</div>
+</div>
+<button class="w-full bg-indigo-500 text-white py-2 rounded-lg text-sm hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2">
+<span class="material-icons-round text-base">save</span> Save Preferences
+                </button>
+<button class="w-full bg-transparent border border-gray-300 dark:border-indigo-700 text-gray-700 dark:text-indigo-200 py-2 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-indigo-800/30 transition-colors flex items-center justify-center gap-2">
+<span class="material-icons-round text-base">lock</span> Change Password
+                </button>
+</div>
+</div>
+<div class="hidden" id="content-activity">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-blue-500">history</span> Recent Activity
+            </h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3 p-3 bg-gray-50 dark:bg-indigo-900/30 rounded-lg">
+<div class="w-8 h-8 rounded-full bg-green-100 dark:bg-green-800 flex items-center justify-center text-green-600 dark:text-green-300 text-lg">
+<span class="material-icons-round text-base">check_circle</span>
+</div>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Updated profile information</p>
+<p class="text-xs text-gray-500 dark:text-indigo-400 mt-1">1 hour ago</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-gray-50 dark:bg-indigo-900/30 rounded-lg">
+<div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-300 text-lg">
+<span class="material-icons-round text-base">login</span> Logged in from new device
+                    </div>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Logged in from Desktop (Chrome)</p>
+<p class="text-xs text-gray-500 dark:text-indigo-400 mt-1">Yesterday</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-gray-50 dark:bg-indigo-900/30 rounded-lg">
+<div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-800 flex items-center justify-center text-orange-600 dark:text-orange-300 text-lg">
+<span class="material-icons-round text-base">settings_backup_restore</span> Password reset attempt
+                    </div>
+<div>
+<p class="font-medium text-gray-800 dark:text-white">Password reset requested</p>
+<p class="text-xs text-gray-500 dark:text-indigo-400 mt-1">3 days ago</p>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full bg-gray-100 dark:bg-indigo-800/50 text-indigo-700 dark:text-indigo-200 py-2 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-indigo-700/60 transition-colors flex items-center justify-center gap-2">
+<span class="material-icons-round text-base">read_more</span> View Full History
+            </button>
+</div>
+</div>
+</div>
+<div class="flex-shrink-0 p-4 pt-0 lg:hidden">
+<button class="w-full bg-red-500 text-white py-3 rounded-xl text-lg hover:bg-red-600 transition-colors font-medium flex items-center justify-center gap-3 shadow-lg">
+<span class="material-icons-round text-xl">logout</span> Logout
+    </button>
+</div>
+<div class="lg:col-span-3 text-center pt-8 pb-4 flex-shrink-0">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                Protected by Digital Twin Security Systems © 2023
+            </p>
+</div>
+</main>
+</div>
+<script>
+    // Toggle Sidebar Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    function toggleSidebar() {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    menuToggle.addEventListener('click', toggleSidebar);
+    menuClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    // Tab Interface Logic
+    const tabButtons = {
+        classes: document.getElementById('tab-classes'),
+        settings: document.getElementById('tab-settings'),
+        activity: document.getElementById('tab-activity'),
+    };
+    const tabContents = {
+        classes: document.getElementById('content-classes'),
+        settings: document.getElementById('content-settings'),
+        activity: document.getElementById('content-activity'),
+    };
+    function activateTab(tabName) {
+        // Deactivate all tabs
+        for (const name in tabButtons) {
+            tabButtons[name].classList.remove('border-indigo-500', 'dark:border-white', 'text-indigo-600', 'dark:text-white');
+            tabButtons[name].classList.add('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300', 'dark:hover:border-indigo-700');
+            tabContents[name].classList.add('hidden');
+        }
+        // Activate the selected tab
+        tabButtons[tabName].classList.add('border-indigo-500', 'dark:border-white', 'text-indigo-600', 'dark:text-white');
+        tabButtons[tabName].classList.remove('border-transparent', 'hover:text-gray-600', 'hover:border-gray-300', 'dark:hover:text-gray-300', 'dark:hover:border-indigo-700');
+        tabContents[tabName].classList.remove('hidden');
+    }
+    // Add event listeners for tab clicks
+    tabButtons.classes.addEventListener('click', () => activateTab('classes'));
+    tabButtons.settings.addEventListener('click', () => activateTab('settings'));
+    tabButtons.activity.addEventListener('click', () => activateTab('activity'));
+    // Activate the default tab on load
+    activateTab('classes');
+</script>
+
+</body></html>

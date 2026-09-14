@@ -17,6 +17,11 @@ class DigitalTwin(Base):
 
     risk_level = Column(String, default="unknown")
 
+    # Forecasting Fields
+    predicted_gpa = Column(Float, default=0.0)
+    failure_probability = Column(Float, default=0.0)
+    confidence = Column(Float, default=0.0)
+
     derived_metrics = Column(JSON, default=dict)
     explanation = Column(JSON, default=dict)
 

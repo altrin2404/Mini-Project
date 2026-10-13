@@ -11,16 +11,22 @@ export default function Sidebar() {
     activeRole, setActiveRole,
     studentIdx, setStudentIdx,
     parentIdx,  setParentIdx,
-    activeStudent, activeParent,
-    studentProfiles, parentProfiles,
+    teacherIdx, setTeacherIdx,
+    activeStudent, activeParent, activeTeacher,
+    studentProfiles, parentProfiles, teacherProfiles,
   } = useSim();
 
   const navigate = useNavigate();
   const [alertCount, setAlertCount] = useState(0);
 
-  // In demo mode, derive alert count from simulation data
+  // In demo mode, derive alert count and demoName from simulation data
   const effectiveRole = user?.role || activeRole;
-  const demoName = activeRole === "student" ? activeStudent?.name : activeParent?.childName + "'s Parent";
+  const demoName =
+    activeRole === "student"
+      ? activeStudent?.name
+      : activeRole === "teacher"
+      ? activeTeacher?.name
+      : activeParent?.childName + "'s Parent";
 
   useEffect(() => {
     if (user?.role === 'student' || user?.role === 'parent') {
@@ -47,7 +53,8 @@ export default function Sidebar() {
           <>
             <NavLink end to="" className="nav-link">Dashboard</NavLink>
             <NavLink to="twin" className="nav-link">Digital Twin</NavLink>
-            <NavLink to="risk" className="nav-link">Risk Insights</NavLink>
+            <NavLink to="rewards" className="nav-link">Badges & Progress</NavLink>
+            <NavLink to="risk" className="nav-link">LLM Insights</NavLink>
             <NavLink to="alerts" className="nav-link">
               Alerts
               {alertCount > 0 && <span className="badge">{alertCount}</span>}
@@ -59,8 +66,8 @@ export default function Sidebar() {
       case 'teacher':
         return (
           <>
-            <NavLink end to="" className="nav-link">Dashboard</NavLink>
-            <NavLink to="students" className="nav-link">Students</NavLink>
+            <NavLink end to="" className="nav-link">Class Overview</NavLink>
+            <NavLink to="students" className="nav-link">Marks Entry & Students</NavLink>
             <NavLink to="risk-hub" className="nav-link">Risk Hub</NavLink>
             <NavLink to="profile" className="nav-link">Profile</NavLink>
           </>

@@ -16,6 +16,17 @@ from app.models.user import User
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
 
+# ─────────────────────────────
+# ROLE GUARD
+# ─────────────────────────────
+def require_roles(roles: list):
+    def checker(user=Depends(get_current_user)):
+        if user["role"] not in roles:
+            raise HTTPException(status_code=403, detail="Forbidden")
+        return user
+    return checker
+
+
 @router.get("/admin/health")
 def admin_health(user=Depends(require_roles(["admin"]))):
     return {
@@ -52,17 +63,6 @@ def teacher_summary(user=Depends(require_roles(["teacher"]))):
             {"name": "John Doe", "risk": "Low"},
         ]
     }
-
-
-# ─────────────────────────────
-# ROLE GUARD
-# ─────────────────────────────
-def require_roles(roles: list):
-    def checker(user=Depends(get_current_user)):
-        if user["role"] not in roles:
-            raise HTTPException(status_code=403, detail="Forbidden")
-        return user
-    return checker
 
 
 # ─────────────────────────────

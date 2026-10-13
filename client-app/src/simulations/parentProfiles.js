@@ -1,3 +1,5 @@
+import { getStudentSemesters } from "./engineeringSemesters";
+
 // ============================================================
 // 5 PARENT SIMULATION PROFILES
 // ============================================================
@@ -5,18 +7,18 @@
 export const parentProfiles = [
   {
     id: 1,
-    label: "P1: Parent of Arjun",
+    label: "P1: Parent of Altrin",
     tag: "All Clear 🟢",
     tagColor: "#10b981",
     role: "parent",
-    childName: "Arjun Sharma",
+    childName: "Altrin",
 
     dashboard: {
       systemAlerts: [],
       twinStability: "99%",
       twinStatus: "Excellent",
       twinStatusColor: "#10b981",
-      updateMsg: "Arjun's Digital Twin has been updated with new assessment data. Overall stability remains at 99%. No action required.",
+      updateMsg: "Altrin's Digital Twin has been updated with new assessment data. Overall stability remains at 99%. No action required.",
     },
 
     childTwin: {
@@ -30,28 +32,29 @@ export const parentProfiles = [
     },
 
     reports: {
+      semesters: getStudentSemesters("altrin", "Altrin"),
       terms: [
-        { term: "Term 1, 2023", grade: "A" },
-        { term: "Term 2, 2023", grade: "A+" },
-        { term: "Term 3, 2023", grade: "A" },
-        { term: "Term 4, 2023", grade: "A+" },
-        { term: "Term 1, 2024", grade: "A+" },
+        { term: "Semester 1", grade: "A" },
+        { term: "Semester 2", grade: "A+" },
+        { term: "Semester 3", grade: "A" },
+        { term: "Semester 4", grade: "A+" },
+        { term: "Semester 5 (Active)", grade: "A+" },
       ],
       selectedGrade: "A+",
       attendance: "98%",
       behavior: "Exceptional",
-      summary: "Arjun continues to perform at the highest level. Active participant in all co-curricular activities.",
+      summary: "Altrin continues to perform at the highest level across all internals and practicals. Active participant in all technical seminars.",
     },
   },
 
   // ─────────────────────────────────────────────────────────
   {
     id: 2,
-    label: "P2: Parent of Rahul",
+    label: "P2: Parent of Rethna",
     tag: "Urgent Action ❗",
     tagColor: "#ef4444",
     role: "parent",
-    childName: "Rahul Kumar",
+    childName: "Rethna",
 
     dashboard: {
       systemAlerts: [
@@ -59,7 +62,7 @@ export const parentProfiles = [
           id: "a1",
           type: "Critical",
           title: "Failure Risk Detected — Math",
-          message: "Rahul's Math performance has declined by 22% over the last 4 weeks. Automated intervention has been triggered. Please schedule a parent-teacher meeting immediately.",
+          message: "Rethna's Math performance has declined by 22% over the last 4 weeks. Automated intervention has been triggered. Please schedule a parent-teacher meeting immediately.",
         },
         {
           id: "a2",
@@ -71,7 +74,7 @@ export const parentProfiles = [
       twinStability: "32%",
       twinStatus: "Critical",
       twinStatusColor: "#ef4444",
-      updateMsg: "Rahul's Digital Twin flags multiple risk indicators. Immediate parental engagement is required.",
+      updateMsg: "Rethna's Digital Twin flags multiple risk indicators. Immediate parental engagement is required.",
     },
 
     childTwin: {
@@ -95,18 +98,18 @@ export const parentProfiles = [
       selectedGrade: "D",
       attendance: "52%",
       behavior: "Needs Attention",
-      summary: "Rahul's performance has been on a consistent downtrend. Immediate academic support and counselling have been recommended by the school.",
+      summary: "Rethna's performance has been on a consistent downtrend. Immediate academic support and counselling have been recommended by the school.",
     },
   },
 
   // ─────────────────────────────────────────────────────────
   {
     id: 3,
-    label: "P3: Parent of Priya",
+    label: "P3: Parent of Jins",
     tag: "Needs Monitoring 🟡",
     tagColor: "#f59e0b",
     role: "parent",
-    childName: "Priya Mehta",
+    childName: "Jins",
 
     dashboard: {
       systemAlerts: [
@@ -114,13 +117,13 @@ export const parentProfiles = [
           id: "a1",
           type: "Warning",
           title: "Attendance Approaching Threshold",
-          message: "Priya's attendance has dropped to 79%, nearing the 75% minimum. Please ensure regular school attendance.",
+          message: "Jins's attendance has dropped to 79%, nearing the 75% minimum. Please ensure regular school attendance.",
         },
       ],
       twinStability: "68%",
       twinStatus: "Moderate",
       twinStatusColor: "#f59e0b",
-      updateMsg: "Priya's Digital Twin shows stable but slightly declining metrics. A parent check-in is recommended within the week.",
+      updateMsg: "Jins's Digital Twin shows stable but slightly declining metrics. A parent check-in is recommended within the week.",
     },
 
     childTwin: {
@@ -144,25 +147,25 @@ export const parentProfiles = [
       selectedGrade: "B",
       attendance: "79%",
       behavior: "Moderate",
-      summary: "Priya maintains a consistent average performance. Science subjects show slight decline; parental encouragement at home is recommended.",
+      summary: "Jins maintains a consistent average performance. Science subjects show slight decline; parental encouragement at home is recommended.",
     },
   },
 
   // ─────────────────────────────────────────────────────────
   {
     id: 4,
-    label: "P4: Parent of Ananya",
+    label: "P4: Parent of Mukhilan",
     tag: "Great Progress 📈",
     tagColor: "#6366f1",
     role: "parent",
-    childName: "Ananya Singh",
+    childName: "Mukhilan",
 
     dashboard: {
       systemAlerts: [],
       twinStability: "85%",
       twinStatus: "Improving",
       twinStatusColor: "#6366f1",
-      updateMsg: "Ananya's Digital Twin reflects a strong positive recovery. Risk level downgraded from High to Low. Excellent progress — keep up the support!",
+      updateMsg: "Mukhilan's Digital Twin reflects a strong positive recovery. Risk level downgraded from High to Low. Excellent progress — keep up the support!",
     },
 
     childTwin: {
@@ -186,18 +189,18 @@ export const parentProfiles = [
       selectedGrade: "B",
       attendance: "88%",
       behavior: "Good",
-      summary: "Ananya's academic trajectory is now positive after a difficult start. The improvement plan has been effective. Continued home support will help consolidate these gains.",
+      summary: "Mukhilan's academic trajectory is now positive after a difficult start. The improvement plan has been effective. Continued home support will help consolidate these gains.",
     },
   },
 
   // ─────────────────────────────────────────────────────────
   {
     id: 5,
-    label: "P5: Parent of Dev",
+    label: "P5: Parent of Jerish",
     tag: "Behavioral Alert 🔴",
     tagColor: "#f59e0b",
     role: "parent",
-    childName: "Dev Patel",
+    childName: "Jerish",
 
     dashboard: {
       systemAlerts: [
@@ -205,13 +208,13 @@ export const parentProfiles = [
           id: "a1",
           type: "Critical",
           title: "Behavioral Incident — Escalation Required",
-          message: "Dev has had 3 behavioral incidents in 2 weeks. A mandatory parent-teacher meeting has been scheduled for tomorrow at 4:00 PM. Please confirm attendance.",
+          message: "Jerish has had 3 behavioral incidents in 2 weeks. A mandatory parent-teacher meeting has been scheduled for tomorrow at 4:00 PM. Please confirm attendance.",
         },
       ],
       twinStability: "72%",
       twinStatus: "At Risk (Behavioral)",
       twinStatusColor: "#f59e0b",
-      updateMsg: "Dev's Digital Twin shows strong academic metrics but critical behavioral flags. Your prompt engagement will help resolve this quickly.",
+      updateMsg: "Jerish's Digital Twin shows strong academic metrics but critical behavioral flags. Your prompt engagement will help resolve this quickly.",
     },
 
     childTwin: {
@@ -235,7 +238,7 @@ export const parentProfiles = [
       selectedGrade: "B+",
       attendance: "90%",
       behavior: "Critical",
-      summary: "Dev's academic record is strong with consistent A-range grades. The current concern is purely behavioral. Parental engagement and counsellor support are the recommended interventions.",
+      summary: "Jerish's academic record is strong with consistent A-range grades. The current concern is purely behavioral. Parental engagement and counsellor support are the recommended interventions.",
     },
   },
 ];

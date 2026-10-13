@@ -12,8 +12,10 @@ from app.core.ownership import is_parent_of_child, is_teacher_of_child
 router = APIRouter(prefix="/alerts", tags=["Alerts"])
 
 
+from app.models.parent_child_map import ParentChildMap
+
 # ─────────────────────────────
-# STUDENT — VIEW OWN ALERTS
+# STUDENT & PARENT — VIEW OWN / CHILD ALERTS
 # ─────────────────────────────
 @router.get("/self", response_model=List[AlertOut])
 def get_my_alerts(
@@ -22,10 +24,13 @@ def get_my_alerts(
     db: Session = Depends(get_db),
     user=Depends(get_current_user)
 ):
-    if user["role"] != "student":
-        raise HTTPException(403, "Only students allowed")
-
-    q = db.query(Alert).filter(Alert.child_id == user["user_id"])
+    if user["role"] == "student":
+        q = db.query(Alert).filter(Alert.child_id == user["user_id"])
+    elif user["role"] == "parent":
+        child_ids = [m.child_id for m in db.query(ParentChildMap).filter(ParentChildMap.parent_id == user["user_id"]).all()]
+        q = db.query(Alert).filter(Alert.child_id.in_(child_ids)) if child_ids else db.query(Alert).filter(Alert.child_id == "NONE")
+    else:
+        raise HTTPException(403, "Only students and parents allowed")
 
     if resolved is not None:
         q = q.filter(Alert.resolved == resolved)

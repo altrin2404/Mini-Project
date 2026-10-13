@@ -8,7 +8,12 @@ export default function RiskHub() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    api.get("/dashboard/admin").then(res => setData(res.data)); // Reusing admin stats for now
+    api.get("/dashboard/admin")
+      .then(res => setData(res.data))
+      .catch(() => {
+        // Fallback for teacher demo mode
+        setData({ initialized: true });
+      });
   }, []);
 
   if (!data) return <p style={{ padding: 40 }}>Loading risk hub...</p>;

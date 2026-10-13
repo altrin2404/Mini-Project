@@ -28,6 +28,9 @@ export default function App() {
         {isDemo && activeRole === "student" && (
           <Route path="/*" element={<StudentRoutes />} />
         )}
+        {isDemo && activeRole === "teacher" && (
+          <Route path="/*" element={<TeacherRoutes />} />
+        )}
         {isDemo && activeRole === "parent" && (
           <Route path="/*" element={<ParentRoutes />} />
         )}

@@ -1,0 +1,453 @@
+/* ============================================================
+   GAMIFIED STUDENT REWARDS & BADGES STYLING
+   ============================================================ */
+
+.rewards-page {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+/* Toast Message */
+.rewards-toast {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  background: #0f172a;
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  font-weight: 700;
+  border-left: 4px solid #10b981;
+  z-index: 9999;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Hero Card */
+.rewards-hero-card {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+  border-radius: 24px;
+  padding: 36px 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.25);
+}
+
+.rewards-hero-card::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-left {
+  max-width: 680px;
+  z-index: 1;
+}
+
+.hero-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+
+.hero-left h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 10px 0;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.hero-left p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+/* Level Box */
+.level-box {
+  background: rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 20px 24px;
+}
+
+.level-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.level-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.level-pill {
+  background: #f59e0b;
+  color: #0f172a;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.level-title-group h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.rank-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.xp-bar-container {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  border-radius: 6px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.xp-numbers-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Trophy Sphere */
+.hero-right-graphic {
+  position: relative;
+  z-index: 1;
+}
+
+.trophy-sphere {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.xp-float-badge {
+  position: absolute;
+  bottom: -10px;
+  background: #10b981;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Sections */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 6px 0;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin: 0 0 18px 0;
+}
+
+/* Streaks Grid */
+.streaks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 14px;
+}
+
+.streak-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.streak-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #cbd5e1;
+}
+
+.streak-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.streak-content {
+  flex: 1;
+}
+
+.streak-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.streak-val {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.streak-active-pill {
+  font-size: 10px;
+  font-weight: 800;
+  background: #ffedd5;
+  color: #ea580c;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.streak-content h4 {
+  margin: 0 0 3px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.streak-content p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Badges Section */
+.badges-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+
+.badge-filter-tabs {
+  display: flex;
+  gap: 8px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.filter-tab {
+  background: transparent;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tab.active {
+  background: white;
+  color: var(--text-main);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.badge-card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  border: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.badge-card.unlocked {
+  border-color: #e2e8f0;
+}
+
+.badge-card.unlocked:hover {
+  transform: translateY(-4px);
+  border-color: #818cf8;
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.12);
+}
+
+.badge-card.locked {
+  opacity: 0.65;
+  background: #f8fafc;
+  filter: grayscale(40%);
+}
+
+.badge-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.badge-category {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.badge-status-chip {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.badge-status-chip.green {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badge-status-chip.gray {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.badge-icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.badge-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(168, 85, 247, 0.12));
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+}
+
+.badge-card.locked .badge-icon-circle {
+  background: #e2e8f0;
+  color: #94a3b8;
+  border-color: #cbd5e1;
+}
+
+.badge-title {
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-main);
+  text-align: center;
+}
+
+.badge-desc {
+  margin: 0 0 16px 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: center;
+  flex: 1;
+}
+
+.badge-footer {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+  display: flex;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.date-cleared {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #10b981;
+}
+
+.date-locked {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #94a3b8;
+}
+

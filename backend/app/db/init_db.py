@@ -21,8 +21,8 @@ import app.models.insight_review
 
 
 def init_db():
-    print("🧱 Creating database tables...")
+    print("[DB] Creating database tables...")
     Base.metadata.create_all(bind=engine)
-    print("✅ Tables created")
+    print("[DB] Tables created successfully")
 if __name__ == "__main__":
     init_db()

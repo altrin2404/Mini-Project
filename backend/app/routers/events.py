@@ -29,7 +29,9 @@ def submit_event(
 
     # 2️⃣ Ownership rules
     if role == "student":
-        if event.child_id != user_id:
+        if not event.child_id:
+            event.child_id = user_id
+        elif event.child_id != user_id:
             raise HTTPException(
                 status_code=403,
                 detail="Students can submit events only for themselves"

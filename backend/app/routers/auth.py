@@ -44,29 +44,42 @@ def signup(data: SignupRequest):
 
 @router.post("/login")
 def login(data: LoginRequest, request: Request):
-    # Mocking login for development/run mode
-    payload = {
-        "sub": "S001",
-        "role": "student",
-        "email": data.email,
-        "session_id": "mock_session_id"
-    }
+    # Recognize mock credentials for Student, Faculty, and Parent
+    email_lower = data.email.lower().strip()
 
-    if data.email == "teacher@test.com":
-        payload.update({
+    if email_lower in ["faculty@college.edu", "teacher@college.edu", "teacher@test.com"]:
+        payload = {
             "sub": "T001",
-            "role": "teacher"
-        })
-    elif data.email == "admin@test.com":
-        payload.update({
-            "sub": "A001",
-            "role": "admin"
-        })
-    elif data.email == "parent@test.com":
-        payload.update({
+            "role": "teacher",
+            "email": data.email,
+            "name": "Dr. K. Arulraj (Faculty Mentor)",
+            "session_id": "mock_teacher_session"
+        }
+    elif email_lower in ["parent@college.edu", "parent@test.com"]:
+        payload = {
             "sub": "P001",
-            "role": "parent"
-        })
+            "role": "parent",
+            "email": data.email,
+            "name": "Mr. Benser (Altrin's Parent)",
+            "session_id": "mock_parent_session"
+        }
+    elif email_lower in ["admin@college.edu", "admin@test.com"]:
+        payload = {
+            "sub": "A001",
+            "role": "admin",
+            "email": data.email,
+            "name": "System Administrator",
+            "session_id": "mock_admin_session"
+        }
+    else:
+        # Default student mock user (Altrin)
+        payload = {
+            "sub": "S001",
+            "role": "student",
+            "email": data.email,
+            "name": "Altrin (Student)",
+            "session_id": "mock_student_session"
+        }
 
     token = create_access_token(payload)
 
@@ -76,6 +89,7 @@ def login(data: LoginRequest, request: Request):
         "user": {
             "id": payload["sub"],
             "email": payload["email"],
-            "role": payload["role"]
+            "role": payload["role"],
+            "name": payload.get("name", "User")
         }
     }

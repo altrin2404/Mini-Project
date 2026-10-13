@@ -19,29 +19,10 @@ class BehaviorPayload(BaseModel):
     note: str
 
 
-# --------------------
-# Event Create Schema
-# --------------------
-
 class EventCreate(BaseModel):
-    child_id: Optional[str]
-    event_type: Literal["attendance", "test", "behavior"]
+    child_id: Optional[str] = None
+    event_type: str
     payload: Dict[str, Any]
-
-    @validator("payload")
-    def validate_payload_by_type(cls, payload, values):
-        event_type = values.get("event_type")
-
-        if event_type == "attendance":
-            AttendancePayload(**payload)
-        elif event_type == "test":
-            TestPayload(**payload)
-        elif event_type == "behavior":
-            BehaviorPayload(**payload)
-        else:
-            raise ValueError("Unsupported event type")
-
-        return payload
 
 
 # --------------------
@@ -50,11 +31,11 @@ class EventCreate(BaseModel):
 
 class EventResponse(BaseModel):
     id: str
-    child_id: Optional[str]
+    child_id: Optional[str] = None
     event_type: str
-    payload: Dict
+    payload: Dict[str, Any]
     timestamp: datetime
     processed: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True

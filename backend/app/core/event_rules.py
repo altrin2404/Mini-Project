@@ -2,19 +2,26 @@ ROLE_EVENT_MAP = {
     "student": {
         "attendance_marked",
         "test_score_recorded",
-        "activity_completed"
+        "activity_completed",
+        "attendance",
+        "test",
+        "behavior",
+        "academic",
     },
     "teacher": {
         "teacher_attendance",
         "marks_uploaded",
-        "behavior_observation"
+        "behavior_observation",
+        "attendance",
+        "test",
+        "behavior",
     },
     "parent": {
         "parent_feedback",
-        "acknowledged_alert"
+        "acknowledged_alert",
     },
     "admin": {
-        "system_configuration_change"
+        "system_configuration_change",
     }
 }
 

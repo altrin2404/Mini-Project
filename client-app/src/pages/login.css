@@ -140,3 +140,15 @@
   opacity: 0.6;
   letter-spacing: 0.5px;
 }
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 32px 20px;
+    width: 92%;
+    border-radius: 20px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+}

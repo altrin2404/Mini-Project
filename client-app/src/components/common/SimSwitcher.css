@@ -149,3 +149,23 @@
 .sim-active-label strong {
   color: var(--primary-dark);
 }
+
+/* Mobile rules for SimSwitcher */
+@media (max-width: 900px) {
+  .sim-switcher {
+    bottom: 74px;
+    right: 14px;
+  }
+
+  .sim-toggle {
+    padding: 10px 18px;
+    font-size: 12px;
+  }
+
+  .sim-panel {
+    width: calc(100vw - 28px);
+    max-width: 330px;
+    padding: 18px 14px;
+  }
+}
+

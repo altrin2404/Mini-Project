@@ -3,9 +3,10 @@ import { useAuth } from "../../auth/AuthContext";
 import { useSim } from "../../simulations/SimulationContext";
 import api from "../../api/axios";
 import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import "./sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { user, logout } = useAuth();
   const {
     activeRole, setActiveRole,
@@ -21,12 +22,6 @@ export default function Sidebar() {
 
   // In demo mode, derive alert count and demoName from simulation data
   const effectiveRole = user?.role || activeRole;
-  const demoName =
-    activeRole === "student"
-      ? activeStudent?.name
-      : activeRole === "teacher"
-      ? activeTeacher?.name
-      : activeParent?.childName + "'s Parent";
 
   useEffect(() => {
     if (user?.role === 'student' || user?.role === 'parent') {
@@ -42,8 +37,13 @@ export default function Sidebar() {
   }, [user, activeRole, activeStudent]);
 
   const handleLogout = () => {
+    if (onClose) onClose();
     logout();
     navigate("/login", { replace: true });
+  };
+
+  const handleNavClick = () => {
+    if (onClose) onClose();
   };
 
   const renderLinks = () => {
@@ -51,44 +51,44 @@ export default function Sidebar() {
       case 'student':
         return (
           <>
-            <NavLink end to="" className="nav-link">Dashboard</NavLink>
-            <NavLink to="twin" className="nav-link">Digital Twin</NavLink>
-            <NavLink to="rewards" className="nav-link">Badges & Progress</NavLink>
-            <NavLink to="risk" className="nav-link">LLM Insights</NavLink>
-            <NavLink to="alerts" className="nav-link">
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
+            <NavLink to="twin" className="nav-link" onClick={handleNavClick}>Digital Twin</NavLink>
+            <NavLink to="rewards" className="nav-link" onClick={handleNavClick}>Badges & Progress</NavLink>
+            <NavLink to="risk" className="nav-link" onClick={handleNavClick}>LLM Insights</NavLink>
+            <NavLink to="alerts" className="nav-link" onClick={handleNavClick}>
               Alerts
               {alertCount > 0 && <span className="badge">{alertCount}</span>}
             </NavLink>
-            <NavLink to="events" className="nav-link">Submit Event</NavLink>
-            <NavLink to="profile" className="nav-link">Profile</NavLink>
+            <NavLink to="events" className="nav-link" onClick={handleNavClick}>Submit Event</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
           </>
         );
       case 'teacher':
         return (
           <>
-            <NavLink end to="" className="nav-link">Class Overview</NavLink>
-            <NavLink to="students" className="nav-link">Marks Entry & Students</NavLink>
-            <NavLink to="risk-hub" className="nav-link">Risk Hub</NavLink>
-            <NavLink to="profile" className="nav-link">Profile</NavLink>
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Class Overview</NavLink>
+            <NavLink to="students" className="nav-link" onClick={handleNavClick}>Marks Entry & Students</NavLink>
+            <NavLink to="risk-hub" className="nav-link" onClick={handleNavClick}>Risk Hub</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
           </>
         );
       case 'parent':
         return (
           <>
-            <NavLink end to="" className="nav-link">Dashboard</NavLink>
-            <NavLink to="digital-twin" className="nav-link">Digital Twin</NavLink>
-            <NavLink to="reports" className="nav-link">Reports</NavLink>
-            <NavLink to="profile" className="nav-link">Profile</NavLink>
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
+            <NavLink to="digital-twin" className="nav-link" onClick={handleNavClick}>Digital Twin</NavLink>
+            <NavLink to="reports" className="nav-link" onClick={handleNavClick}>Reports</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
           </>
         );
       case 'admin':
         return (
           <>
-            <NavLink end to="" className="nav-link">Dashboard</NavLink>
-            <NavLink to="system-health" className="nav-link">System Health</NavLink>
-            <NavLink to="audit-logs" className="nav-link">Audit Logs</NavLink>
-            <NavLink to="settings" className="nav-link">System Settings</NavLink>
-            <NavLink to="profile" className="nav-link">Profile</NavLink>
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
+            <NavLink to="system-health" className="nav-link" onClick={handleNavClick}>System Health</NavLink>
+            <NavLink to="audit-logs" className="nav-link" onClick={handleNavClick}>Audit Logs</NavLink>
+            <NavLink to="settings" className="nav-link" onClick={handleNavClick}>System Settings</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
           </>
         );
       default:
@@ -97,21 +97,28 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <div className="sidebar-top">
         <div className="brand animate-fade-in-up">
-          <div className="logo">DT</div>
-          <div>
-            <h3>Digital Twin</h3>
-            <span>Academic Platform</span>
+          <div className="brand-info">
+            <div className="logo">DT</div>
+            <div>
+              <h3>Digital Twin</h3>
+              <span>Academic Platform</span>
+            </div>
           </div>
+          {onClose && (
+            <button className="sidebar-close-btn" onClick={onClose} aria-label="Close sidebar">
+              <X size={18} />
+            </button>
+          )}
         </div>
 
         {/* Demo mode identity strip */}
         {!user && (
           <div style={{
-            padding: "12px 16px",
-            marginBottom: 24,
+            padding: "10px 14px",
+            marginBottom: 20,
             background: "rgba(99, 102, 241, 0.08)",
             border: "1px solid rgba(99, 102, 241, 0.2)",
             borderRadius: 12,
@@ -128,7 +135,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", animationDelay: "0.2s" }} className="animate-fade-in-up">
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", animationDelay: "0.2s", marginTop: 24 }} className="animate-fade-in-up">
         {/* Dropdown for simulation profiling */}
         {!user && (
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -146,6 +153,7 @@ export default function Sidebar() {
                 } else if (role === "parent") {
                   setParentIdx(idx);
                 }
+                if (onClose) onClose();
               }}
               style={{
                 width: "100%",
@@ -185,7 +193,6 @@ export default function Sidebar() {
                 <option value="admin-0">System Administrator</option>
               </optgroup>
             </select>
-
           </div>
         )}
 
@@ -196,4 +203,3 @@ export default function Sidebar() {
     </aside>
   );
 }
-

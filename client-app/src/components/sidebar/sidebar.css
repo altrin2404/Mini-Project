@@ -1,5 +1,5 @@
 .sidebar {
-  width: 280px;
+  width: 270px;
   height: 100vh;
   background: var(--sidebar-bg);
   backdrop-filter: blur(24px);
@@ -13,60 +13,88 @@
   position: sticky;
   top: 0;
   z-index: 50;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 40px;
-  padding: 0 8px;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+.brand-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: var(--bg-gradient);
-  border-radius: 14px;
+  border-radius: 12px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Outfit', sans-serif;
   box-shadow: var(--shadow-glow);
+  flex-shrink: 0;
 }
 
 .brand h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.2;
 }
 
 .brand span {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
   font-weight: 500;
+}
+
+/* Close button on mobile sidebar */
+.sidebar-close-btn {
+  display: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-close-btn:active {
+  background: #e2e8f0;
 }
 
 .nav-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .nav-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: var(--radius);
   text-decoration: none;
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   transition: var(--transition-smooth);
 }
@@ -74,7 +102,7 @@
 .nav-link:hover {
   background: rgba(99, 102, 241, 0.05);
   color: var(--text-main);
-  transform: translateX(4px);
+  transform: translateX(3px);
 }
 
 .nav-link.active {
@@ -87,8 +115,8 @@
 .badge {
   background: var(--accent-rose);
   color: white;
-  font-size: 12px;
-  padding: 4px 10px;
+  font-size: 11px;
+  padding: 3px 8px;
   border-radius: var(--radius-pill);
   font-weight: 700;
   box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
@@ -98,9 +126,9 @@
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text-main);
-  padding: 14px;
+  padding: 12px;
   border-radius: var(--radius);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -113,4 +141,40 @@
   background: #fef2f2;
   border-color: #fecaca;
   color: var(--accent-rose);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE DRAWER RULES (< 900px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 290px;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 1100;
+    transform: translateX(-100%);
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    padding: 20px 18px 30px 18px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close-btn {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 13px 16px;
+    font-size: 15px;
+  }
 }

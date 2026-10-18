@@ -451,3 +451,36 @@
   color: #94a3b8;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   MOBILE & TABLET RESPONSIVE RULES (< 768px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .rewards-page {
+    padding: 12px 10px 48px 10px;
+  }
+
+  .hero-profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 14px;
+    gap: 16px;
+  }
+
+  .badges-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .tier-cards-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 4px;
+  }
+}
+
+

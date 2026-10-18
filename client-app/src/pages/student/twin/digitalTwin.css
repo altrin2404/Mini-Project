@@ -583,3 +583,47 @@
 .stat-item .value.green {
   color: #10b981;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE & TABLET RESPONSIVE RULES (< 768px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .twin-page {
+    padding: 12px 10px 48px 10px;
+  }
+
+  .twin-header h1 {
+    font-size: 20px;
+  }
+
+  .twin-workbench,
+  .main-twin-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+
+  .semester-nav-card {
+    padding: 12px 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .semester-nav-card .semesters-grid,
+  .sem-selector-row {
+    display: flex !important;
+    gap: 8px;
+    min-width: 500px;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .competency-card,
+  .detail-panel {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+}
+

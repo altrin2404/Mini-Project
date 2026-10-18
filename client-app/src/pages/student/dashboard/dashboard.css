@@ -777,3 +777,134 @@
 .btn-strip-rewards:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE & TABLET RESPONSIVE OVERHAUL (< 768px & < 480px)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 12px 10px 48px 10px;
+    gap: 14px;
+  }
+
+  .dashboard-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 14px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+
+  .dashboard-header-card h1 {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+
+  .dashboard-header-card p {
+    font-size: 12px;
+  }
+
+  .header-actions-col {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .telemetry-meta-row {
+    gap: 6px;
+  }
+
+  .gauge-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .gauge-card {
+    padding: 12px 10px;
+    gap: 10px;
+    border-radius: 14px;
+  }
+
+  .gauge-info h3 {
+    font-size: 17px;
+  }
+
+  .gauge-info p {
+    font-size: 10px;
+  }
+
+  .charts-duo-grid,
+  .analytics-grid,
+  .insights-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+  }
+
+  .chart-card {
+    padding: 14px 12px;
+    border-radius: 16px;
+    min-width: 0;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .chart-container-tall {
+    height: 250px !important;
+  }
+
+  .whatif-container {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .whatif-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .whatif-outcomes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  .gamified-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .gamified-strip-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .modal-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    padding: 18px 14px !important;
+  }
+}
+
+@media (max-width: 440px) {
+  .gauge-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header-card h1 {
+    font-size: 18px;
+  }
+}
+

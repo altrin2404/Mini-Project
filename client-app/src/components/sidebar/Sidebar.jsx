@@ -134,14 +134,16 @@ export default function Sidebar() {
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <label style={{ fontSize: 10, fontWeight: 800, color: "var(--text-light)", letterSpacing: "0.05em" }}>SIMULATION PROFILE</label>
             <select
-              value={`${activeRole}-${activeRole === "student" ? studentIdx : parentIdx}`}
+              value={activeRole === "student" ? `student-${studentIdx}` : activeRole === "teacher" ? `teacher-${teacherIdx}` : activeRole === "parent" ? `parent-${parentIdx}` : "admin-0"}
               onChange={(e) => {
                 const [role, idxStr] = e.target.value.split("-");
                 const idx = parseInt(idxStr, 10);
                 setActiveRole(role);
                 if (role === "student") {
                   setStudentIdx(idx);
-                } else {
+                } else if (role === "teacher") {
+                  setTeacherIdx(idx);
+                } else if (role === "parent") {
                   setParentIdx(idx);
                 }
               }}
@@ -161,7 +163,14 @@ export default function Sidebar() {
               <optgroup label="👩‍🎓 Students">
                 {studentProfiles.map((p, i) => (
                   <option key={`s-${i}`} value={`student-${i}`}>
-                    {p.name}
+                    {p.name} ({p.tag})
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label="👩‍🏫 Faculty Mentors">
+                {teacherProfiles.map((t, i) => (
+                  <option key={`t-${i}`} value={`teacher-${i}`}>
+                    {t.name}
                   </option>
                 ))}
               </optgroup>
@@ -172,7 +181,11 @@ export default function Sidebar() {
                   </option>
                 ))}
               </optgroup>
+              <optgroup label="🛡️ Administration">
+                <option value="admin-0">System Administrator</option>
+              </optgroup>
             </select>
+
           </div>
         )}
 

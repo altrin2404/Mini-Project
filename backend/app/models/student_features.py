@@ -22,12 +22,20 @@ class StudentFeatures(Base):
     homework_delta = Column(Float)
     test_score_delta = Column(Float)
 
-    attendance_norm = Column(Float)
-    homework_norm = Column(Float)
-    test_score_norm = Column(Float)
+    attendance_norm = Column(Float, default=1.0)
+    homework_norm = Column(Float, default=1.0)
+    test_score_norm = Column(Float, default=0.0)
+
+    # Additional feature engine fields
+    attendance_rate_30d = Column(Float, default=1.0)
+    avg_test_score_30d = Column(Float, default=0.0)
+    behavior_count_30d = Column(Float, default=0.0)
+    behavior_delta = Column(Float, default=0.0)
+    volatility_score = Column(Float, default=0.0)
 
     updated_at = Column(
         DateTime,
         server_default=func.now(),
         onupdate=func.now()
     )
+

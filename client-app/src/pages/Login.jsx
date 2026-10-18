@@ -131,8 +131,31 @@ export default function Login() {
               <span>👨‍👩‍👧 <strong>Parent</strong> (Mr. Benser)</span>
               <span style={{ color: "#f59e0b", fontSize: 11 }}>parent@college.edu →</span>
             </button>
+
+            <button
+              type="button"
+              onClick={() => handleQuickLogin("admin@college.edu", "admin123")}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "8px 12px",
+                borderRadius: 8,
+                border: "1px solid #cbd5e1",
+                background: "white",
+                cursor: "pointer",
+                fontSize: 12,
+                fontWeight: 700,
+                color: "#1e293b",
+                transition: "all 0.15s",
+              }}
+            >
+              <span>🛡️ <strong>Admin</strong> (System Admin)</span>
+              <span style={{ color: "#ef4444", fontSize: 11 }}>admin@college.edu →</span>
+            </button>
           </div>
         </div>
+
 
         <form onSubmit={handleSubmit} className="login-form">
 

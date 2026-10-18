@@ -40,7 +40,7 @@ def get_or_create_user(
 def seed():
     db = SessionLocal()
 
-    print("🌱 Seeding demo data...")
+    print("[SEED] Seeding demo data...")
 
     # ─────────────────────────────
     # USERS
@@ -138,7 +138,7 @@ def seed():
     db.commit()
     db.close()
 
-    print("✅ DEMO DATA SEEDED (safe to re-run)")
+    print("[SUCCESS] DEMO DATA SEEDED (safe to re-run)")
 
 
 if __name__ == "__main__":

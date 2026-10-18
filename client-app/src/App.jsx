@@ -34,6 +34,9 @@ export default function App() {
         {isDemo && activeRole === "parent" && (
           <Route path="/*" element={<ParentRoutes />} />
         )}
+        {isDemo && activeRole === "admin" && (
+          <Route path="/*" element={<AdminRoutes />} />
+        )}
 
         {/* Real authenticated routes */}
         {user?.role === 'student' && <Route path="/*" element={<StudentRoutes />} />}
@@ -45,7 +48,11 @@ export default function App() {
         {isDemo && <Route path="*" element={<Navigate to="/" replace />} />}
         {user && <Route path="*" element={<Navigate to="/" replace />} />}
       </Routes>
+
+      {/* Floating RBAC & Persona Switcher for Presentation Demo */}
+      {isDemo && <SimSwitcher />}
     </>
   );
 }
+
 

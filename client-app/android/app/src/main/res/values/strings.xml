@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Digital Class Twin</string>
+    <string name="title_activity_main">Digital Class Twin</string>
+    <string name="package_name">com.digitalclasstwin.app</string>
+    <string name="custom_url_scheme">com.digitalclasstwin.app</string>
+</resources>

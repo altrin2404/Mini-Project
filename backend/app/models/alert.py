@@ -1,12 +1,13 @@
 from sqlalchemy import Column, String, Boolean, DateTime, JSON
 from datetime import datetime
+import uuid
 from app.db.base import Base
 
 
 class Alert(Base):
     __tablename__ = "alerts"
 
-    id = Column(String, primary_key=True)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     child_id = Column(String, nullable=False)
 
     alert_type = Column(String, nullable=False)     # e.g. "risk"

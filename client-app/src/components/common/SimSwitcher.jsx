@@ -20,7 +20,10 @@ export default function SimSwitcher() {
       ? activeStudent
       : activeRole === "teacher"
       ? activeTeacher
-      : activeParent;
+      : activeRole === "parent"
+      ? activeParent
+      : { name: "System Administrator" };
+
 
   return (
     <div className={`sim-switcher ${open ? "sim-open" : ""}`}>
@@ -36,26 +39,33 @@ export default function SimSwitcher() {
           <p className="sim-title">Select User Role (Access Control Demo)</p>
 
           {/* Role Tabs */}
-          <div className="sim-role-tabs">
+          <div className="sim-role-tabs" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
             <button
               className={`sim-role-btn ${activeRole === "student" ? "active" : ""}`}
               onClick={() => setActiveRole("student")}
             >
-              👨‍🎓 Student
+              Student
             </button>
             <button
               className={`sim-role-btn ${activeRole === "teacher" ? "active" : ""}`}
               onClick={() => setActiveRole("teacher")}
             >
-              👩‍🏫 Faculty
+              Faculty
             </button>
             <button
               className={`sim-role-btn ${activeRole === "parent" ? "active" : ""}`}
               onClick={() => setActiveRole("parent")}
             >
-              👨‍👩‍👧 Parent
+              Parent
+            </button>
+            <button
+              className={`sim-role-btn ${activeRole === "admin" ? "active" : ""}`}
+              onClick={() => setActiveRole("admin")}
+            >
+              Admin
             </button>
           </div>
+
 
           {/* Profile List */}
           <div className="sim-profile-list">
@@ -100,7 +110,20 @@ export default function SimSwitcher() {
                   </span>
                 </button>
               ))}
+
+            {activeRole === "admin" && (
+              <button
+                className="sim-profile-btn selected"
+                onClick={() => {}}
+              >
+                <span className="sim-profile-name">System Administrator</span>
+                <span className="sim-tag" style={{ background: "rgba(239, 68, 68, 0.15)", color: "#ef4444" }}>
+                  Super Admin
+                </span>
+              </button>
+            )}
           </div>
+
 
           <div className="sim-footer">
             <span className="sim-active-label">

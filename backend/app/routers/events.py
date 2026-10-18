@@ -9,6 +9,7 @@ from app.schemas.event import EventCreate, EventResponse
 from app.models.event import Event
 from app.core.dependencies import get_current_user
 from app.core.event_rules import ROLE_EVENT_MAP
+from app.core.event_processor import process_single_event
 
 router = APIRouter(prefix="/events", tags=["Events"])
 @router.post("/", response_model=EventResponse, status_code=status.HTTP_201_CREATED)
@@ -84,4 +85,12 @@ def submit_event(
     db.commit()
     db.refresh(db_event)
 
+    try:
+        process_single_event(db, db_event)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(f"[EVENT_PROCESSING_WARNING] {e}")
+
     return db_event
+

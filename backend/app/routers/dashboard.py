@@ -85,36 +85,53 @@ def student_dashboard(
     db: Session = Depends(get_db)
 ):
     child_id = user["user_id"]
+    twin = db.query(DigitalTwin).filter(DigitalTwin.child_id == child_id).first()
+    risk = db.query(RiskScore).filter(RiskScore.child_id == child_id).first()
+    features = db.query(StudentFeatures).filter(StudentFeatures.child_id == child_id).first()
+    alerts = db.query(Alert).filter(Alert.child_id == child_id, Alert.resolved == False).order_by(Alert.created_at.desc()).all()
+
+    acad_norm = round(float(twin.academic_score or 82.0) / 100.0 if float(twin.academic_score or 0) > 1.0 else float(twin.academic_score or 0.82), 2) if twin else 0.82
+    att_norm = round(float(twin.attendance_score or 95.0) / 100.0 if float(twin.attendance_score or 0) > 1.0 else float(twin.attendance_score or 0.95), 2) if twin else 0.95
+    beh_norm = round(float(twin.behavior_score or 88.0) / 100.0 if float(twin.behavior_score or 0) > 1.0 else float(twin.behavior_score or 0.88), 2) if twin else 0.88
 
     return {
         "student_id": child_id,
         "twin": {
-            "academic_score": 0.82,
-            "attendance_score": 0.95,
-            "behavior_score": 0.88,
-            "state": "Stable",
+            "academic_score": acad_norm,
+            "attendance_score": att_norm,
+            "behavior_score": beh_norm,
+            "state": (twin.twin_state.capitalize() if twin and twin.twin_state else "Stable"),
         },
         "forecast": {
-            "predicted_gpa": 3.8,
-            "failure_probability": 0.05,
-            "confidence": 0.92,
+            "predicted_gpa": float(twin.predicted_gpa or 3.8) if twin else 3.8,
+            "failure_probability": float(twin.failure_probability or 0.05) if twin else 0.05,
+            "confidence": float(twin.confidence or 0.92) if twin else 0.92,
         },
         "risk": {
-            "attendance_risk": 5.0,
-            "academic_risk": 15.0,
-            "behavior_risk": 10.0,
-            "volatility_risk": 8.0,
-            "total_risk": 12.0,
+            "attendance_risk": float(risk.attendance_risk or 5.0) if risk else 5.0,
+            "academic_risk": float(risk.academic_risk or 15.0) if risk else 15.0,
+            "behavior_risk": float(risk.behavior_risk or 10.0) if risk else 10.0,
+            "volatility_risk": float(risk.volatility_risk or 8.0) if risk else 8.0,
+            "total_risk": float(risk.total_risk or 12.0) if risk else 12.0,
         },
         "features": {
-            "attendance_7d": 96.5,
-            "attendance_30d": 94.2,
-            "attendance_delta": 2.3,
-            "test_score_7d": 85.0,
-            "test_score_30d": 78.5,
-            "test_score_delta": 6.5,
+            "attendance_7d": float(features.attendance_7d or 96.5) if features else 96.5,
+            "attendance_30d": float(features.attendance_30d or 94.2) if features else 94.2,
+            "attendance_delta": float(features.attendance_delta or 2.3) if features else 2.3,
+            "test_score_7d": float(features.test_score_7d or 85.0) if features else 85.0,
+            "test_score_30d": float(features.test_score_30d or 78.5) if features else 78.5,
+            "test_score_delta": float(features.test_score_delta or 6.5) if features else 6.5,
         },
         "alerts": [
+            {
+                "id": a.id,
+                "severity": a.severity,
+                "type": a.alert_type,
+                "message": a.message,
+                "created_at": a.created_at.isoformat() if a.created_at else "2026-03-15T10:00:00Z"
+            }
+            for a in alerts
+        ] if alerts else [
             {
                 "id": "A1",
                 "severity": "info",
@@ -124,6 +141,7 @@ def student_dashboard(
             }
         ]
     }
+
 
 
 # ─────────────────────────────

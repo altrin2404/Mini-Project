@@ -18,16 +18,24 @@ def get_my_profile(
     ).first()
 
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        return {
+            "user_id": current_user.get("user_id", "S001"),
+            "role": current_user.get("role", "student"),
+            "email": current_user.get("email", "student@college.edu"),
+            "full_name": current_user.get("name", "Demo User"),
+            "phone": "+91 98765 43210",
+            "created_at": "2026-01-10T09:00:00Z",
+        }
 
     return {
         "user_id": user.id,
         "role": user.role,
         "email": user.email,
-        "full_name": user.full_name,
-        "phone": user.phone,
+        "full_name": user.full_name or user.email.split("@")[0].capitalize(),
+        "phone": user.phone or "+91 98765 43210",
         "created_at": user.created_at,
     }
+
 
 @router.put("/me")
 def update_my_profile(

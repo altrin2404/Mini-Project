@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Line, Bar, Doughnut, Radar } from "react-chartjs-2";
 import { useSim } from "../../../simulations/SimulationContext";
@@ -29,6 +29,10 @@ import {
   PieChart
 } from "lucide-react";
 import "./dashboard.css";
+import { mlApi } from "../../../api/mlApi";
+import AlertDispatcherModal from "../../../components/common/AlertDispatcherModal";
+import PeerCohortBenchmark from "../../../components/common/PeerCohortBenchmark";
+import { exportDiagnosticReportPdf } from "../../../utils/pdfExport";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -38,8 +42,40 @@ export default function Dashboard() {
 
   // Interactive What-If simulation slider state (Hypothetical Next IAT Exam Score)
   const [simulatedIatScore, setSimulatedIatScore] = useState(d.academic || 85);
+  const [mlSimResult, setMlSimResult] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [reportModal, setReportModal] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setIsExportingPdf(true);
+    await exportDiagnosticReportPdf("printable-dashboard-area", s.name);
+    setIsExportingPdf(false);
+  };
+
+  useEffect(() => {
+    // Debounce calling the backend What-If ML model
+    const timer = setTimeout(() => {
+      const baseline = {
+        attendance_percentage: d.attendance || 85,
+        iat1_score: d.academic || 75,
+        iat2_score: d.academic || 75,
+        assignment_avg: 75,
+        lab_performance: 80,
+        behavior_score: d.behavior || 90,
+        past_cgpa: d.cgpa || 7.5,
+        prev_sem_gpa: d.cgpa || 7.5,
+      };
+
+      mlApi
+        .simulateWhatIf(baseline, { iat2_score: simulatedIatScore })
+        .then((res) => setMlSimResult(res))
+        .catch((err) => console.warn("Backend ML simulation fallback:", err));
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [simulatedIatScore, d]);
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -341,25 +377,18 @@ export default function Dashboard() {
     simulatedIatScore < 50 ? "High Risk (Improvement Exam Needed)" : simulatedIatScore < 70 ? "Average" : "Low Risk (Safe)";
 
   return (
-    <div className="dashboard-page">
-      {/* ── 1. DIGITAL TWIN HEADER ── */}
+    <div className="dashboard-page" id="printable-dashboard-area">
+      {/* ── 1. CLEAN STUDENT HEADER ── */}
       <div className="dashboard-header-card">
         <div className="header-left-col">
-          <div className="telemetry-meta-row">
+          <div className="header-title-row">
+            <h1>Welcome back, {s.name}! 👋</h1>
             <span className="degree-tag">
-              <BookOpen size={13} />
-              B.E. Computer Science & Engineering • Year 3 • Semester 5
+              <BookOpen size={12} /> B.E. CSE • Year 3 • Sem 5
             </span>
-            <div className="live-telemetry-pill">
-              <span className="live-beacon"></span>
-              <span>LIVE DIGITAL TWIN STATUS</span>
-            </div>
-            <span className="sync-chip">Model Accuracy: {twinFidelity}</span>
-            <span className="latency-chip">Status: Online</span>
           </div>
-          <h1>{s.name}'s Student Dashboard & Digital Twin 🔮</h1>
-          <p>
-            A clear visual overview of your marks, attendance, exam progress, and predicted grades.
+          <p className="header-subtext">
+            Here is your academic summary for this semester, including attendance, marks, and estimated graduation standing.
           </p>
         </div>
 
@@ -369,12 +398,17 @@ export default function Dashboard() {
             onClick={handleRefresh}
             title="Refresh latest marks and attendance data"
           >
-            <RefreshCw size={15} />
-            <span>Refresh Data</span>
+            <RefreshCw size={14} />
+            <span>Refresh</span>
           </button>
-          <button className="btn-view-report" onClick={() => setReportModal(true)}>
-            <FileText size={15} />
-            <span>Full Report</span>
+          <button
+            className="btn-export-pdf"
+            onClick={handleDownloadPdf}
+            disabled={isExportingPdf}
+            title="Download Academic Summary Report"
+          >
+            <FileText size={14} />
+            <span>{isExportingPdf ? "Exporting..." : "Download Report"}</span>
           </button>
         </div>
       </div>
@@ -670,29 +704,60 @@ export default function Dashboard() {
           </div>
 
           {/* SIMULATED IMPACT OUTPUT CARDS */}
-          <div className="simulation-results-grid">
+          <div className="simulation-results-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             <div className="sim-result-box">
-              <span className="res-lbl">Estimated Semester 5 GPA</span>
+              <span className="res-lbl">Expected Semester GPA (SGPA)</span>
               <strong className="res-val" style={{ color: "#6366f1" }}>
-                {simulatedProjectedCgpa}
+                {mlSimResult?.simulated?.semester_gpa ?? (simulatedIatScore >= 80 ? 8.9 : simulatedIatScore >= 60 ? 7.4 : 5.8)}
               </strong>
+              {mlSimResult?.impact_summary?.sem_gpa_delta !== undefined && (
+                <span style={{ fontSize: 11, fontWeight: 700, color: mlSimResult.impact_summary.sem_gpa_delta >= 0 ? "#10b981" : "#ef4444" }}>
+                  {mlSimResult.impact_summary.sem_gpa_delta >= 0 ? `+${mlSimResult.impact_summary.sem_gpa_delta}` : mlSimResult.impact_summary.sem_gpa_delta} this sem
+                </span>
+              )}
             </div>
 
             <div className="sim-result-box">
-              <span className="res-lbl">Need Improvement Exam?</span>
+              <span className="res-lbl">Projected Total CGPA</span>
+              <strong className="res-val" style={{ color: "#0ea5e9" }}>
+                {mlSimResult?.simulated?.projected_cgpa ?? simulatedProjectedCgpa}
+              </strong>
+              {mlSimResult?.impact_summary?.cgpa_delta !== undefined && (
+                <span style={{ fontSize: 11, fontWeight: 700, color: mlSimResult.impact_summary.cgpa_delta >= 0 ? "#10b981" : "#ef4444" }}>
+                  {mlSimResult.impact_summary.cgpa_delta >= 0 ? `+${mlSimResult.impact_summary.cgpa_delta}` : mlSimResult.impact_summary.cgpa_delta} overall
+                </span>
+              )}
+            </div>
+
+            <div className="sim-result-box">
+              <span className="res-lbl">Need Retest / Improvement?</span>
               <strong
                 className="res-val"
                 style={{ color: simulatedIatScore < 50 ? "#ef4444" : "#10b981" }}
               >
-                {simulatedIatScore < 50 ? "Improvement Exam 2 Needed 🔄" : "Direct Pass (Safe) ✅"}
+                {simulatedIatScore < 50 ? "Improvement Exam Needed ⚠️" : "Direct Pass (Safe) ✅"}
               </strong>
             </div>
 
             <div className="sim-result-box">
-              <span className="res-lbl">Overall Standing</span>
-              <strong className="res-val" style={{ color: "#0f172a", fontSize: 13 }}>
-                {simulatedRiskLevel}
+              <span className="res-lbl">Expected Risk Standing</span>
+              <strong
+                className="res-val"
+                style={{
+                  color:
+                    (mlSimResult?.simulated?.risk_level || simulatedRiskLevel).includes("High")
+                      ? "#ef4444"
+                      : (mlSimResult?.simulated?.risk_level || simulatedRiskLevel).includes("Medium")
+                      ? "#d97706"
+                      : "#10b981",
+                  fontSize: 14,
+                }}
+              >
+                {mlSimResult?.simulated?.risk_level ? `${mlSimResult.simulated.risk_level} Risk` : simulatedRiskLevel}
               </strong>
+              {mlSimResult?.simulated?.confidence && (
+                <span style={{ fontSize: 10, color: "#64748b" }}>{mlSimResult.simulated.confidence}% model certainty</span>
+              )}
             </div>
           </div>
         </div>
@@ -751,6 +816,9 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+
+      {/* ── PEER COHORT BENCHMARK & SECTION STANDING ── */}
+      <PeerCohortBenchmark student={s} />
 
       {/* ── 6. FULL ACADEMIC REPORT MODAL ── */}
       {reportModal && (

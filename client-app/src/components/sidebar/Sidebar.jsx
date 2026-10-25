@@ -3,7 +3,7 @@ import { useAuth } from "../../auth/AuthContext";
 import { useSim } from "../../simulations/SimulationContext";
 import api from "../../api/axios";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { X, LogOut } from "lucide-react";
 import "./sidebar.css";
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -51,44 +51,36 @@ export default function Sidebar({ isOpen, onClose }) {
       case 'student':
         return (
           <>
-            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
-            <NavLink to="twin" className="nav-link" onClick={handleNavClick}>Digital Twin</NavLink>
-            <NavLink to="rewards" className="nav-link" onClick={handleNavClick}>Badges & Progress</NavLink>
-            <NavLink to="risk" className="nav-link" onClick={handleNavClick}>LLM Insights</NavLink>
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Overview</NavLink>
+            <NavLink to="twin" className="nav-link" onClick={handleNavClick}>Academic Journey</NavLink>
+            <NavLink to="rewards" className="nav-link" onClick={handleNavClick}>Badges & Rewards</NavLink>
+            <NavLink to="risk" className="nav-link" onClick={handleNavClick}>AI Study Advice</NavLink>
             <NavLink to="alerts" className="nav-link" onClick={handleNavClick}>
               Alerts
               {alertCount > 0 && <span className="badge">{alertCount}</span>}
             </NavLink>
-            <NavLink to="events" className="nav-link" onClick={handleNavClick}>Submit Event</NavLink>
-            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
+            <NavLink to="events" className="nav-link" onClick={handleNavClick}>Achievements & Participation</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>My Profile</NavLink>
           </>
         );
       case 'teacher':
         return (
           <>
             <NavLink end to="" className="nav-link" onClick={handleNavClick}>Class Overview</NavLink>
-            <NavLink to="students" className="nav-link" onClick={handleNavClick}>Marks Entry & Students</NavLink>
-            <NavLink to="risk-hub" className="nav-link" onClick={handleNavClick}>Risk Hub</NavLink>
+            <NavLink to="students" className="nav-link" onClick={handleNavClick}>Enter Marks & Students</NavLink>
+            <NavLink to="bulk-upload" className="nav-link" onClick={handleNavClick}>Upload Marks Sheet</NavLink>
+            <NavLink to="benchmarks" className="nav-link" onClick={handleNavClick}>AI Accuracy & Stats</NavLink>
+            <NavLink to="risk-hub" className="nav-link" onClick={handleNavClick}>Students Needing Help</NavLink>
             <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
           </>
         );
       case 'parent':
         return (
           <>
-            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
-            <NavLink to="digital-twin" className="nav-link" onClick={handleNavClick}>Digital Twin</NavLink>
-            <NavLink to="reports" className="nav-link" onClick={handleNavClick}>Reports</NavLink>
-            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
-          </>
-        );
-      case 'admin':
-        return (
-          <>
-            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Dashboard</NavLink>
-            <NavLink to="system-health" className="nav-link" onClick={handleNavClick}>System Health</NavLink>
-            <NavLink to="audit-logs" className="nav-link" onClick={handleNavClick}>Audit Logs</NavLink>
-            <NavLink to="settings" className="nav-link" onClick={handleNavClick}>System Settings</NavLink>
-            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Profile</NavLink>
+            <NavLink end to="" className="nav-link" onClick={handleNavClick}>Parent Overview</NavLink>
+            <NavLink to="digital-twin" className="nav-link" onClick={handleNavClick}>Child Academic Health</NavLink>
+            <NavLink to="reports" className="nav-link" onClick={handleNavClick}>Term Grade Reports</NavLink>
+            <NavLink to="profile" className="nav-link" onClick={handleNavClick}>Parent Profile</NavLink>
           </>
         );
       default:
@@ -101,9 +93,9 @@ export default function Sidebar({ isOpen, onClose }) {
       <div className="sidebar-top">
         <div className="brand animate-fade-in-up">
           <div className="brand-info">
-            <div className="logo">DT</div>
+            <div className="logo">SX</div>
             <div>
-              <h3>Digital Twin</h3>
+              <h3>Student Portal</h3>
               <span>Academic Platform</span>
             </div>
           </div>
@@ -189,15 +181,13 @@ export default function Sidebar({ isOpen, onClose }) {
                   </option>
                 ))}
               </optgroup>
-              <optgroup label="🛡️ Administration">
-                <option value="admin-0">System Administrator</option>
-              </optgroup>
             </select>
           </div>
         )}
 
-        <button className="logout" onClick={handleLogout} style={{ width: "100%", margin: 0 }}>
-          {user ? "Logout" : "Exit Demo"}
+        <button className="logout-btn" onClick={handleLogout}>
+          <LogOut size={15} />
+          <span>{user ? "Sign Out" : "Exit Session"}</span>
         </button>
       </div>
     </aside>

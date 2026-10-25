@@ -20,6 +20,7 @@ export default function StudentRoutes() {
         <Route path="alerts" element={<Alerts />} />
         <Route path="events" element={<SubmitEvent />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="*" element={<Dashboard />} />
       </Route>
     </Routes>
   );

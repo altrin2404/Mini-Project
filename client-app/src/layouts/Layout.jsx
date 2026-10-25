@@ -53,9 +53,7 @@ export default function Layout() {
       ? (activeStudent?.name ? activeStudent.name.split(" ")[0] : "Student")
       : effectiveRole === "teacher"
       ? (activeTeacher?.name ? activeTeacher.name.split(" ")[0] : "Faculty")
-      : effectiveRole === "parent"
-      ? "Parent"
-      : "Admin";
+      : "Parent";
 
   const renderBottomNav = () => {
     switch (effectiveRole) {

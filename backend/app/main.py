@@ -53,6 +53,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from app.routers.ml_routes import router as ml_router
+from app.routers.upload_routes import router as upload_router
+
 # ✅ Register routers
 app.include_router(auth_router)
 app.include_router(profile_router)
@@ -64,6 +67,8 @@ app.include_router(insights_router)
 app.include_router(alerts_router)
 app.include_router(linked_accounts_router)
 app.include_router(session_router)
+app.include_router(ml_router)
+app.include_router(upload_router)
 app.include_router(system.router)
 
 @app.get("/")

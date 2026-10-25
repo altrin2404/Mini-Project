@@ -28,6 +28,7 @@ import {
   quickPrompts,
 } from "../../../simulations/llmInsightsEngine";
 import "./riskInsights.css";
+import XaiWaterfall from "./XaiWaterfall";
 
 export default function RiskInsights() {
   const { activeStudent: s } = useSim();
@@ -237,6 +238,9 @@ export default function RiskInsights() {
           </div>
         </div>
       </div>
+
+      {/* ── SECTION 2.5: EXPLAINABLE AI ATTRIBUTION (RANDOM FOREST) ── */}
+      <XaiWaterfall student={s} />
 
       {/* ── SECTION 3: PRESCRIPTIVE AI ACTION PLAN (STUDENT / FACULTY / PARENT) ── */}
       <div className="llm-action-plan-card">

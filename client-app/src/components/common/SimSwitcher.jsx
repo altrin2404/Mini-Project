@@ -20,9 +20,7 @@ export default function SimSwitcher() {
       ? activeStudent
       : activeRole === "teacher"
       ? activeTeacher
-      : activeRole === "parent"
-      ? activeParent
-      : { name: "System Administrator" };
+      : activeParent;
 
 
   return (
@@ -39,7 +37,7 @@ export default function SimSwitcher() {
           <p className="sim-title">Select User Role (Access Control Demo)</p>
 
           {/* Role Tabs */}
-          <div className="sim-role-tabs" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+          <div className="sim-role-tabs" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
             <button
               className={`sim-role-btn ${activeRole === "student" ? "active" : ""}`}
               onClick={() => setActiveRole("student")}
@@ -57,12 +55,6 @@ export default function SimSwitcher() {
               onClick={() => setActiveRole("parent")}
             >
               Parent
-            </button>
-            <button
-              className={`sim-role-btn ${activeRole === "admin" ? "active" : ""}`}
-              onClick={() => setActiveRole("admin")}
-            >
-              Admin
             </button>
           </div>
 
@@ -110,18 +102,6 @@ export default function SimSwitcher() {
                   </span>
                 </button>
               ))}
-
-            {activeRole === "admin" && (
-              <button
-                className="sim-profile-btn selected"
-                onClick={() => {}}
-              >
-                <span className="sim-profile-name">System Administrator</span>
-                <span className="sim-tag" style={{ background: "rgba(239, 68, 68, 0.15)", color: "#ef4444" }}>
-                  Super Admin
-                </span>
-              </button>
-            )}
           </div>
 
 

@@ -1,7 +1,15 @@
 import { User, Shield, MapPin, Mail, Phone, ChevronRight } from "lucide-react";
+import { useSim } from "../../../simulations/SimulationContext";
+import { useAuth } from "../../../auth/AuthContext";
 import "./profile.css";
 
-export default function Profile({ user }) {
+export default function Profile({ user: propUser }) {
+  const { user: authUser } = useAuth();
+  const { activeStudent } = useSim();
+  const user = propUser || authUser || activeStudent;
+  const userName = user?.name || "Student User";
+  const userEmail = user?.email || (activeStudent?.rollNo ? `${activeStudent.rollNo.toLowerCase()}@college.edu` : "student@college.edu");
+
   return (
     <div className="profile-page">
       <header className="profile-header">
@@ -12,7 +20,7 @@ export default function Profile({ user }) {
       <section className="profile-hero">
         <div className="avatar-large">👨‍🎓</div>
         <div className="hero-info">
-          <h2>{user?.name || "Student User"}</h2>
+          <h2>{userName}</h2>
           <p>Computer Science Department</p>
           <span className="role-tag">STUDENT</span>
         </div>
@@ -25,12 +33,12 @@ export default function Profile({ user }) {
           
           <div className="input-row">
             <label>Full Name</label>
-            <input type="text" value={user?.name || "Student User"} disabled />
+            <input type="text" value={userName} disabled />
           </div>
 
           <div className="input-row">
             <label>Email Address</label>
-            <input type="email" value={user?.email || "student@test.com"} disabled />
+            <input type="email" value={userEmail} disabled />
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>

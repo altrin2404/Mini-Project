@@ -22,7 +22,7 @@ export default function AcademicReports() {
     setTimeout(() => {
       // Trigger a file download in browser
       const element = document.createElement("a");
-      const file = new Blob([`Digital Twin Academic Report for ${p.childName}\nTerm Grade: ${r.selectedGrade}\nAttendance: ${r.attendance}\nBehavior: ${r.behavior}\n\nSummary:\n${r.summary}`], {type: 'text/plain'});
+      const file = new Blob([`Official Academic Progress Report for ${p.childName}\nTerm Grade: ${r.selectedGrade}\nAttendance: ${r.attendance}\nBehavior: ${r.behavior}\n\nSummary:\n${r.summary}`], {type: 'text/plain'});
       element.href = URL.createObjectURL(file);
       element.download = `${p.childName.replace(/\s+/g, '_')}_Academic_Report.txt`;
       document.body.appendChild(element);

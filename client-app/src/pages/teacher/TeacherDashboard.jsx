@@ -13,8 +13,10 @@ import {
   X,
   Save,
   Check,
-  UserCheck
+  UserCheck,
+  ShieldAlert
 } from "lucide-react";
+import AlertDispatcherModal from "../../components/common/AlertDispatcherModal";
 import "./teacherDashboard.css";
 
 export default function TeacherDashboard() {
@@ -24,6 +26,7 @@ export default function TeacherDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterRisk, setFilterRisk] = useState("all");
   const [editingStudent, setEditingStudent] = useState(null);
+  const [alertingStudent, setAlertingStudent] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
   // Mark entry form state
@@ -48,7 +51,7 @@ export default function TeacherDashboard() {
       modelPractical: parseInt(editForm.modelPractical, 10),
     });
 
-    setToastMessage(`✅ Marks updated for ${editingStudent.name}! Digital Twin recalculated.`);
+    setToastMessage(`✅ Internal marks updated for ${editingStudent.name}! Performance projections updated.`);
     setEditingStudent(null);
     setTimeout(() => setToastMessage(null), 3500);
   };
@@ -320,6 +323,26 @@ export default function TeacherDashboard() {
                           {st.hasImprovement ? "Retest Scheduled" : "Schedule Retest"}
                         </button>
                       )}
+
+                      <button
+                        onClick={() => setAlertingStudent(st)}
+                        title="Dispatch warning notice to student's parent via WhatsApp/Email"
+                        style={{
+                          background: st.risk === "High" ? "#fee2e2" : "#f1f5f9",
+                          color: st.risk === "High" ? "#b91c1c" : "#475569",
+                          border: st.risk === "High" ? "1px solid #fca5a5" : "1px solid #cbd5e1",
+                          padding: "6px 12px",
+                          borderRadius: 8,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 5,
+                        }}
+                      >
+                        <ShieldAlert size={13} /> Notify Parent
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -465,6 +488,13 @@ export default function TeacherDashboard() {
           </div>
         </div>
       )}
+
+      {/* ── PARENT NOTICE DISPATCH MODAL ── */}
+      <AlertDispatcherModal
+        isOpen={Boolean(alertingStudent)}
+        onClose={() => setAlertingStudent(null)}
+        student={alertingStudent || {}}
+      />
     </div>
   );
 }

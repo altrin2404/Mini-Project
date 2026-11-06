@@ -1,0 +1,49 @@
+Steps to run the app:
+
+1. Backend (FastAPI)
+
+cd "c:\c\sxcce\Mini Project\Implementation\backend"
+.\venv\Scripts\activate
+
+# 2. Start the FastAPI server
+
+uvicorn app.main:app --reload
+
+Backend URL: http://127.0.0.1:8000
+
+2. Frontend (React + Vite)
+
+cd "c:\c\sxcce\Mini Project\Implementation\client-app"
+
+# 1. Start Vite development server
+npm run dev
+Frontend URL: http://localhost:5173
+
+
+Users and passwords:
+
+Name: Rethna Kumar 
+Email: student_4016@sxcce.edu.in 
+Password: password	
+• Attendance: 52% (Deficit / Critical Alert)
+• Grade: D / High Risk
+• Improvement Retest status active
+
+Name: Kevin Anto 
+Email: student_4015@sxcce.edu.in 
+Password: password	
+• Attendance: 68.5% (Warning <75%)
+• CIA Marks: 83.5%
+• Projected CGPA: 7.78
+
+Name: Jins Mathew 
+Email: student_4008@sxcce.edu.in 
+Password: password	
+• Attendance: 79%
+• Grade: B / Moderate Risk
+
+Name: Student_UCI_000	
+Email: student_4000@sxcce.edu.in 
+Password: password	
+• Real UCI dataset student profile
+

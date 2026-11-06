@@ -1,0 +1,78 @@
+{
+  "features": [
+    "attendance_percentage",
+    "iat1_score",
+    "iat2_score",
+    "assignment_avg",
+    "lab_performance",
+    "behavior_score",
+    "prev_sem_gpa",
+    "past_cgpa"
+  ],
+  "ridge_semester_gpa": {
+    "model_type": "Ridge(alpha=1.0) - Single Semester SGPA",
+    "mean_absolute_error": 0.1145,
+    "r2_score": 0.992,
+    "coefficients": {
+      "attendance_percentage": 0.0219,
+      "iat1_score": 0.0289,
+      "iat2_score": 0.0412,
+      "assignment_avg": 0.0098,
+      "lab_performance": 0.0208,
+      "behavior_score": 0.0,
+      "prev_sem_gpa": 0.0002,
+      "past_cgpa": -0.0068
+    }
+  },
+  "ridge_cumulative_cgpa": {
+    "model_type": "Ridge(alpha=1.0) - Cumulative CGPA",
+    "mean_absolute_error": 0.0287,
+    "r2_score": 0.9993,
+    "coefficients": {
+      "attendance_percentage": 0.0055,
+      "iat1_score": 0.0073,
+      "iat2_score": 0.0103,
+      "assignment_avg": 0.0025,
+      "lab_performance": 0.0052,
+      "behavior_score": 0.0,
+      "prev_sem_gpa": 0.0023,
+      "past_cgpa": 0.7447
+    }
+  },
+  "random_forest": {
+    "model_type": "RandomForestClassifier(n_estimators=120)",
+    "accuracy": 98.6,
+    "classes": [
+      "High",
+      "Low",
+      "Medium"
+    ],
+    "feature_importances": {
+      "attendance_percentage": 0.5051068857738146,
+      "assignment_avg": 0.12776913775144122,
+      "lab_performance": 0.12025302950878508,
+      "past_cgpa": 0.06824108622786024,
+      "iat2_score": 0.06581948993118567,
+      "iat1_score": 0.061234110573274575,
+      "prev_sem_gpa": 0.04610170336984521,
+      "behavior_score": 0.005474556863793518
+    },
+    "confusion_matrix": [
+      [
+        126,
+        0,
+        3
+      ],
+      [
+        0,
+        214,
+        2
+      ],
+      [
+        1,
+        1,
+        153
+      ]
+    ]
+  }
+}

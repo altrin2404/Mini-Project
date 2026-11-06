@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Teacher Dashboard - Digital Twin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body min-h-screen transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">school</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+            Digital Twin
+        </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex h-screen overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">school</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                    Digital Twin
+                </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Teacher Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">group</span>
+                Students
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">trending_up</span>
+                Risk Insights
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">edit_note</span>
+                Submit Events
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">notifications_active</span>
+                Alerts
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">bar_chart</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">account_circle</span>
+                Profile
+            </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 h-full overflow-y-auto p-4 lg:p-8 relative">
+<div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    Action-Oriented Risk Hub
+                </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                    Immediate insights for proactive interventions.
+                </p>
+</div>
+<div class="flex gap-2 w-full md:w-auto">
+<label class="sr-only" for="class-filter">Filter by Class/Section</label>
+<select class="form-select block w-full md:w-48 rounded-lg border-gray-300 dark:border-indigo-700 bg-white dark:bg-indigo-900/40 text-gray-700 dark:text-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3" id="class-filter">
+<option>All Classes</option>
+<option>Grade 9 - Section A</option>
+<option>Grade 9 - Section B</option>
+<option>Grade 10 - Section A</option>
+</select>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-red-500">priority_high</span> Students Needing Attention
+                </h3>
+<div class="flex overflow-x-auto gap-4 pb-4 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+<div class="w-40 sm:w-48 flex-shrink-0 bg-white dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 text-center cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-800 flex items-center justify-center text-red-600 dark:text-red-300 font-medium text-lg mx-auto mb-2">AK</div>
+<p class="font-semibold text-gray-800 dark:text-white text-sm truncate">Alex Kim</p>
+<p class="text-xs text-red-500 dark:text-red-300 mb-2">High Risk</p>
+<span class="inline-flex items-center text-xs px-2 py-1 rounded-full bg-red-50 dark:bg-red-900 text-red-700 dark:text-red-200 font-medium">
+<span class="material-icons-round text-sm mr-1">warning</span> Review Behavior
+                    </span>
+</div>
+<div class="w-40 sm:w-48 flex-shrink-0 bg-white dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 text-center cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-800 flex items-center justify-center text-orange-600 dark:text-orange-300 font-medium text-lg mx-auto mb-2">MP</div>
+<p class="font-semibold text-gray-800 dark:text-white text-sm truncate">Maria Perez</p>
+<p class="text-xs text-orange-500 dark:text-orange-300 mb-2">Moderate Risk</p>
+<span class="inline-flex items-center text-xs px-2 py-1 rounded-full bg-orange-50 dark:bg-orange-900 text-orange-700 dark:text-orange-200 font-medium">
+<span class="material-icons-round text-sm mr-1">event_note</span> Check Attendance
+                    </span>
+</div>
+<div class="w-40 sm:w-48 flex-shrink-0 bg-white dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 text-center cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-800 flex items-center justify-center text-yellow-600 dark:text-yellow-300 font-medium text-lg mx-auto mb-2">JD</div>
+<p class="font-semibold text-gray-800 dark:text-white text-sm truncate">John Doe</p>
+<p class="text-xs text-yellow-500 dark:text-yellow-300 mb-2">Low Risk</p>
+<span class="inline-flex items-center text-xs px-2 py-1 rounded-full bg-yellow-50 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200 font-medium">
+<span class="material-icons-round text-sm mr-1">email</span> Follow-up on Quiz
+                    </span>
+</div>
+<div class="w-40 sm:w-48 flex-shrink-0 bg-white dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 text-center cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-800 flex items-center justify-center text-red-600 dark:text-red-300 font-medium text-lg mx-auto mb-2">SL</div>
+<p class="font-semibold text-gray-800 dark:text-white text-sm truncate">Sarah Lee</p>
+<p class="text-xs text-red-500 dark:text-red-300 mb-2">High Risk</p>
+<span class="inline-flex items-center text-xs px-2 py-1 rounded-full bg-red-50 dark:bg-red-900 text-red-700 dark:text-red-200 font-medium">
+<span class="material-icons-round text-sm mr-1">contact_phone</span> Parent Call
+                    </span>
+</div>
+<div class="w-40 sm:w-48 flex-shrink-0 bg-white dark:bg-card-dark rounded-xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-4 text-center cursor-pointer hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-300 font-medium text-lg mx-auto mb-2">RW</div>
+<p class="font-semibold text-gray-800 dark:text-white text-sm truncate">R. Williams</p>
+<p class="text-xs text-blue-500 dark:text-blue-300 mb-2">New Entry</p>
+<span class="inline-flex items-center text-xs px-2 py-1 rounded-full bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 font-medium">
+<span class="material-icons-round text-sm mr-1">visibility</span> Monitor Progress
+                    </span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-indigo-500">pie_chart</span> Class-wise Risk Distribution
+                </h3>
+<div class="flex space-x-2 border-b border-gray-200 dark:border-indigo-800/50 mb-4">
+<button class="pb-2 text-sm font-medium text-indigo-600 dark:text-indigo-300 border-b-2 border-indigo-500">Overview</button>
+<button class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">Academic</button>
+<button class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">Behavioral</button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+<div class="bg-red-50 dark:bg-red-900/30 rounded-lg p-3">
+<p class="text-2xl font-bold text-red-600 dark:text-red-300">4</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">High Risk</p>
+</div>
+<div class="bg-orange-50 dark:bg-orange-900/30 rounded-lg p-3">
+<p class="text-2xl font-bold text-orange-600 dark:text-orange-300">7</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">Moderate Risk</p>
+</div>
+<div class="bg-yellow-50 dark:bg-yellow-900/30 rounded-lg p-3">
+<p class="text-2xl font-bold text-yellow-600 dark:text-yellow-300">12</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">Low Risk</p>
+</div>
+<div class="bg-green-50 dark:bg-green-900/30 rounded-lg p-3">
+<p class="text-2xl font-bold text-green-600 dark:text-green-300">5</p>
+<p class="text-sm text-gray-500 dark:text-indigo-400">No Risk</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-icons-round text-purple-500">timeline</span> Risk Evolution Chart
+                </h3>
+<div class="flex space-x-2 border-b border-gray-200 dark:border-indigo-800/50 mb-4">
+<button class="pb-2 text-sm font-medium text-indigo-600 dark:text-indigo-300 border-b-2 border-indigo-500">Weekly</button>
+<button class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">Monthly</button>
+<button class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors">Term</button>
+</div>
+<div class="relative w-full h-48 mb-4">
+<canvas id="riskEvolutionChart"></canvas>
+</div>
+</div>
+</div>
+<div class="lg:col-span-3 text-center pt-8 pb-4">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                Protected by Digital Twin Security Systems © 2023
+            </p>
+</div>
+</main>
+</div>
+<script>
+    // Toggle Sidebar Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    function toggleSidebar() {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    menuToggle.addEventListener('click', toggleSidebar);
+    menuClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    // Chart.js Configuration
+    // Common options
+    Chart.defaults.color = '#9ca3af';
+    Chart.defaults.font.family = 'Poppins';
+    // Risk Evolution Line Chart
+    const ctxRiskEvolution = document.getElementById('riskEvolutionChart').getContext('2d');
+    new Chart(ctxRiskEvolution, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            datasets: [
+                {
+                    label: 'High Risk',
+                    data: [5, 4, 6, 4],
+                    borderColor: 'rgb(239, 68, 68)', // Red-500
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'Moderate Risk',
+                    data: [8, 7, 5, 7],
+                    borderColor: 'rgb(249, 115, 22)', // Orange-500
+                    backgroundColor: 'rgba(249, 115, 22, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'Low Risk',
+                    data: [15, 17, 16, 12],
+                    borderColor: 'rgb(234, 179, 8)', // Yellow-500
+                    backgroundColor: 'rgba(234, 179, 8, 0.2)',
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: 'rgb(209, 213, 219)' // tailwind gray-300
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(160, 174, 192, 0.1)',
+                        borderDash: [5, 5]
+                    },
+                    title: {
+                        display: true,
+                        text: 'Number of Students',
+                        color: 'rgb(209, 213, 219)'
+                    },
+                    ticks: {
+                        color: 'rgb(156, 163, 175)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                     ticks: {
+                        color: 'rgb(156, 163, 175)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body></html>

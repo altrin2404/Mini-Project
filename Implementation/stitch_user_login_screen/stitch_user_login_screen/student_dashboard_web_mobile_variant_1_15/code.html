@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Portal - Profile &amp; Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body min-h-screen transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">person_outline</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+            Digital Twin
+        </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex h-screen overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">person_outline</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                    Digital Twin
+                </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Parent Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">layers</span>
+                Digital Twin
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">notifications</span>
+                Alerts &amp; Notifications
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">insights</span>
+                Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">chat</span>
+                Communication
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">settings</span>
+                Profile &amp; Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 h-full overflow-y-auto p-4 lg:p-8 relative flex flex-col">
+<div class="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                    Profile &amp; Settings
+                </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                    Manage your account details, preferences, and security.
+                </p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pb-6">
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50">
+<button aria-controls="parent-details-content" aria-expanded="false" class="w-full flex items-center justify-between p-5 focus:outline-none">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-500">person</span>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Parent Details</h3>
+</div>
+<span class="material-icons-round text-gray-500 dark:text-indigo-300 transition-transform duration-300 transform rotate-0">expand_more</span>
+</button>
+<div class="accordion-content hidden px-5 pb-5 text-gray-600 dark:text-indigo-200 space-y-4">
+<p class="text-sm">Manage your personal information, contact details, and primary account settings.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="parent-name">Full Name</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="parent-name" type="text" value="[Parent's Name]"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="parent-email">Email Address</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="parent-email" type="email" value="parent@example.com"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="parent-phone">Phone Number</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="parent-phone" type="tel" value="+1 (555) 123-4567"/>
+</div>
+</div>
+<button class="mt-4 px-4 py-2 bg-primary text-white rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark text-sm">Update Details</button>
+</div>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50">
+<button aria-controls="child-accounts-content" aria-expanded="false" class="w-full flex items-center justify-between p-5 focus:outline-none">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-500">group</span>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Linked Child Accounts</h3>
+</div>
+<span class="material-icons-round text-gray-500 dark:text-indigo-300 transition-transform duration-300 transform rotate-0">expand_more</span>
+</button>
+<div class="accordion-content hidden px-5 pb-5 text-gray-600 dark:text-indigo-200 space-y-4">
+<p class="text-sm">View and manage the child accounts linked to your profile.</p>
+<ul class="space-y-3">
+<li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-indigo-800 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-400">child_care</span>
+<span class="font-medium text-gray-800 dark:text-white">[Child's Name]</span>
+</div>
+<button class="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">Unlink</button>
+</li>
+<li class="flex items-center justify-between p-3 bg-gray-50 dark:bg-indigo-800 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-400">child_care</span>
+<span class="font-medium text-gray-800 dark:text-white">Another Child</span>
+</div>
+<button class="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">Unlink</button>
+</li>
+</ul>
+<button class="mt-4 px-4 py-2 bg-gray-200 dark:bg-indigo-700 text-gray-700 dark:text-white rounded-md shadow-sm hover:bg-gray-300 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 dark:focus:ring-offset-background-dark text-sm">Add Child Account</button>
+</div>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50">
+<button aria-controls="notifications-content" aria-expanded="false" class="w-full flex items-center justify-between p-5 focus:outline-none">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-500">notifications</span>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Notification Preferences</h3>
+</div>
+<span class="material-icons-round text-gray-500 dark:text-indigo-300 transition-transform duration-300 transform rotate-0">expand_more</span>
+</button>
+<div class="accordion-content hidden px-5 pb-5 text-gray-600 dark:text-indigo-200 space-y-4">
+<p class="text-sm">Customize how you receive alerts and updates.</p>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<label class="text-gray-700 dark:text-indigo-300" for="email-alerts">Email Alerts</label>
+<input checked="" class="form-checkbox h-5 w-5 text-primary rounded-md border-gray-300 focus:ring-primary" id="email-alerts" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="text-gray-700 dark:text-indigo-300" for="push-notifications">Push Notifications</label>
+<input checked="" class="form-checkbox h-5 w-5 text-primary rounded-md border-gray-300 focus:ring-primary" id="push-notifications" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="text-gray-700 dark:text-indigo-300" for="sms-alerts">SMS Alerts</label>
+<input class="form-checkbox h-5 w-5 text-primary rounded-md border-gray-300 focus:ring-primary" id="sms-alerts" type="checkbox"/>
+</div>
+</div>
+<button class="mt-4 px-4 py-2 bg-primary text-white rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark text-sm">Save Preferences</button>
+</div>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50">
+<button aria-controls="security-options-content" aria-expanded="false" class="w-full flex items-center justify-between p-5 focus:outline-none">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-indigo-500">security</span>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Security Options</h3>
+</div>
+<span class="material-icons-round text-gray-500 dark:text-indigo-300 transition-transform duration-300 transform rotate-0">expand_more</span>
+</button>
+<div class="accordion-content hidden px-5 pb-5 text-gray-600 dark:text-indigo-200 space-y-4">
+<p class="text-sm">Enhance your account security with these options.</p>
+<div class="space-y-3">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="current-password">Current Password</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="current-password" type="password"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="new-password">New Password</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="new-password" type="password"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-indigo-300" for="confirm-password">Confirm New Password</label>
+<input class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-indigo-700 dark:border-indigo-600 dark:text-white sm:text-sm" id="confirm-password" type="password"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="text-gray-700 dark:text-indigo-300" for="two-factor">Two-Factor Authentication</label>
+<input class="form-checkbox h-5 w-5 text-primary rounded-md border-gray-300 focus:ring-primary" id="two-factor" type="checkbox"/>
+</div>
+</div>
+<button class="mt-4 px-4 py-2 bg-primary text-white rounded-md shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-background-dark text-sm">Update Security</button>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<button class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-800/30 transition-all font-medium">
+<span class="material-icons-round">logout</span>
+                Logout
+            </button>
+</div>
+<div class="text-center pt-8 pb-4">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                Protected by Digital Twin Security Systems © 2023
+            </p>
+</div>
+</main>
+</div>
+<script>
+    // Toggle Sidebar Logic
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    function toggleSidebar() {
+        const isHidden = sidebar.classList.contains('-translate-x-full');
+        if (isHidden) {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+    }
+    menuToggle.addEventListener('click', toggleSidebar);
+    menuClose.addEventListener('click', toggleSidebar);
+    overlay.addEventListener('click', toggleSidebar);
+    // Accordion Logic
+    document.querySelectorAll('.bg-white.dark\\:bg-card-dark button[aria-expanded]').forEach(button => {
+        button.addEventListener('click', () => {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.material-icons-round');
+            button.setAttribute('aria-expanded', !isExpanded);
+            if (isExpanded) {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            } else {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            }
+        });
+    });
+    // Chart.js Configuration (Removed, as it's not relevant for Profile & Settings)
+    // Common options
+    Chart.defaults.color = '#9ca3af';
+    Chart.defaults.font.family = 'Poppins';
+    // Placeholder to prevent JS errors if chart elements are referenced elsewhere
+    // If there were other charts, they would be removed here.
+    // The previous academicHighlightsChart is removed as it's not part of Profile & Settings.
+</script>
+</body></html>

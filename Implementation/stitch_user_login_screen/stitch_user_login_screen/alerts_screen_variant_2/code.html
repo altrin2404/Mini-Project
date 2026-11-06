@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alerts Screen - Digital Twin Student Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#8B5CF6", // Violet-500 equivalent from the reference vibe
+              "primary-dark": "#7C3AED", // Darker shade for hover/active
+              "background-light": "#F3F4F6", // Gray-100
+              "background-dark": "#111827", // Gray-900
+              "card-light": "#FFFFFF",
+              "card-dark": "#1F2937",
+              "text-main-light": "#1F2937",
+              "text-main-dark": "#F9FAFB",
+              "text-muted-light": "#6B7280",
+              "text-muted-dark": "#9CA3AF",
+              "sidebar-light": "#FFFFFF",
+              "sidebar-dark": "#1F2937",
+              "accent-purple": "#EDE9FE", // Light purple background
+              "accent-purple-dark": "rgba(139, 92, 246, 0.2)", // Dark mode accent
+            },
+            fontFamily: {
+              display: ["'Plus Jakarta Sans'", "sans-serif"],
+              body: ["'Plus Jakarta Sans'", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem", // 16px
+              "xl": "1rem",
+              "2xl": "1.5rem",
+            },
+            boxShadow: {
+              'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+              'glow': '0 0 15px rgba(139, 92, 246, 0.3)',
+            }
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300 min-h-screen font-body antialiased selection:bg-primary selection:text-white">
+<header class="fixed top-0 left-0 right-0 h-16 bg-sidebar-light dark:bg-sidebar-dark z-50 flex items-center justify-between px-4 shadow-sm lg:hidden transition-colors duration-300">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+<span class="material-icons-round text-2xl">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-icons-round text-lg">grid_view</span>
+</div>
+<span class="font-bold text-lg text-primary">Digital Twin</span>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-accent-purple dark:bg-accent-purple-dark flex items-center justify-center text-primary font-bold text-sm border border-primary/20">
+            JD
+        </div>
+</header>
+<aside class="fixed top-0 left-0 h-full w-64 bg-sidebar-light dark:bg-sidebar-dark shadow-soft z-40 hidden lg:flex flex-col transition-colors duration-300 border-r border-gray-100 dark:border-gray-800">
+<div class="h-20 flex items-center px-6 gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white shadow-glow">
+<span class="material-icons-round">grid_view</span>
+</div>
+<div class="flex flex-col">
+<span class="font-bold text-xl leading-none text-primary">Digital Twin</span>
+<span class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1 font-medium">Student Portal</span>
+</div>
+</div>
+<nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto hide-scrollbar">
+<div class="px-2 mb-2 text-xs font-bold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Main Menu</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group" href="#">
+<span class="material-icons-round text-xl group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-medium group-hover:text-text-main-light dark:group-hover:text-white">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group" href="#">
+<span class="material-icons-round text-xl group-hover:text-primary transition-colors">layers</span>
+<span class="font-medium group-hover:text-text-main-light dark:group-hover:text-white">Digital Twin Model</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group" href="#">
+<span class="material-icons-round text-xl group-hover:text-primary transition-colors">insights</span>
+<span class="font-medium group-hover:text-text-main-light dark:group-hover:text-white">Risk Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-accent-purple dark:bg-accent-purple-dark text-primary font-semibold shadow-sm transition-all relative overflow-hidden" href="#">
+<span class="material-icons-round text-xl relative z-10">notifications</span>
+<span class="relative z-10">Alerts</span>
+<div class="absolute right-4 w-5 h-5 rounded-full bg-primary text-white text-[10px] flex items-center justify-center font-bold z-10">3</div>
+</a>
+<div class="px-2 mt-8 mb-2 text-xs font-bold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">Actions</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group" href="#">
+<span class="material-icons-round text-xl group-hover:text-primary transition-colors">event_available</span>
+<span class="font-medium group-hover:text-text-main-light dark:group-hover:text-white">Submit Event</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-50 dark:hover:bg-gray-800 transition-all group" href="#">
+<span class="material-icons-round text-xl group-hover:text-primary transition-colors">person</span>
+<span class="font-medium group-hover:text-text-main-light dark:group-hover:text-white">Profile</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-gray-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all group" href="#">
+<span class="material-icons-round text-xl transform group-hover:translate-x-1 transition-transform">logout</span>
+<span class="font-medium">Logout</span>
+</a>
+<div class="mt-4 text-center">
+<p class="text-[10px] text-text-muted-light dark:text-text-muted-dark opacity-60">Protected by Digital Twin Security Systems © 2023</p>
+</div>
+</div>
+</aside>
+<main class="lg:ml-64 pt-20 lg:pt-8 px-4 lg:px-10 pb-10 min-h-screen transition-all duration-300">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h1 class="text-3xl lg:text-4xl font-bold text-text-main-light dark:text-text-main-dark mb-2">Alerts</h1>
+<p class="text-text-muted-light dark:text-text-muted-dark font-medium">Stay updated with critical system notifications and academic alerts.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-text-muted-light dark:text-text-muted-dark shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+<span class="material-icons-round text-base">filter_list</span>
+                    Filter
+                </button>
+<button class="px-4 py-2 rounded-lg bg-white dark:bg-card-dark border border-gray-200 dark:border-gray-700 text-sm font-medium text-text-muted-light dark:text-text-muted-dark shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+<span class="material-icons-round text-base">check_circle</span>
+                    Mark all read
+                </button>
+</div>
+</div>
+<div class="w-full bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-soft mb-8 border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 animate-pulse">
+<span class="material-icons-round">wifi</span>
+</div>
+<div>
+<h3 class="font-bold text-text-main-light dark:text-text-main-dark">System Online</h3>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">All monitoring services are active.</p>
+</div>
+</div>
+<span class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded text-text-muted-light dark:text-text-muted-dark">Last sync: Just now</span>
+</div>
+<div class="flex overflow-x-auto hide-scrollbar gap-4 mb-6 border-b border-gray-200 dark:border-gray-700 pb-1">
+<button class="px-4 py-2 text-sm font-bold text-primary border-b-2 border-primary whitespace-nowrap">All Alerts (3)</button>
+<button class="px-4 py-2 text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-primary dark:hover:text-primary transition-colors whitespace-nowrap">Academic Risk</button>
+<button class="px-4 py-2 text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-primary dark:hover:text-primary transition-colors whitespace-nowrap">Behavioral</button>
+<button class="px-4 py-2 text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-primary dark:hover:text-primary transition-colors whitespace-nowrap">System</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="lg:col-span-2 bg-gradient-to-br from-primary to-purple-700 rounded-2xl p-6 lg:p-8 text-white shadow-lg relative overflow-hidden group hover:shadow-glow transition-all duration-300">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:opacity-10 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-black opacity-10 rounded-full -ml-10 -mb-10 blur-2xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide flex items-center gap-1">
+<span class="material-icons-round text-sm">priority_high</span> Critical
+                            </span>
+<span class="text-white/80 text-sm">Academic Risk</span>
+</div>
+<h2 class="text-2xl font-bold mb-2">Attention Needed: Grade Drop Detected</h2>
+<p class="text-purple-100 leading-relaxed max-w-2xl mb-6">
+                            Academic performance in Mathematics has decreased by 15% over the last month. This triggers an automated intervention suggestion. Please review the detailed report.
+                        </p>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-2.5 bg-white text-primary font-bold rounded-lg shadow-sm hover:bg-gray-50 transition-colors flex items-center gap-2">
+                                Review Report
+                                <span class="material-icons-round text-sm">arrow_forward</span>
+</button>
+<button class="px-6 py-2.5 bg-purple-800/50 hover:bg-purple-800/70 text-white font-medium rounded-lg transition-colors border border-white/10">
+                                Dismiss
+                            </button>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 shadow-inner">
+<span class="material-icons-round text-3xl text-white">trending_down</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-soft border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+<span class="material-icons-round">schedule</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main-light dark:text-text-main-dark group-hover:text-primary transition-colors">Attendance Warning</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark">Yesterday, 2:30 PM</p>
+</div>
+</div>
+<button class="text-text-muted-light dark:text-text-muted-dark hover:text-text-main-light dark:hover:text-white transition-colors">
+<span class="material-icons-round">more_vert</span>
+</button>
+</div>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 leading-relaxed">
+                    Late arrival recorded for Physics Class. This is the 2nd instance this week.
+                </p>
+<div class="flex items-center justify-end">
+<a class="text-sm font-semibold text-primary hover:text-purple-700 dark:hover:text-purple-400 flex items-center gap-1" href="#">
+                        View Details <span class="material-icons-round text-base">chevron_right</span>
+</a>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-soft border border-gray-100 dark:border-gray-800 hover:border-primary/30 transition-colors group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+<span class="material-icons-round">library_books</span>
+</div>
+<div>
+<h4 class="font-bold text-text-main-light dark:text-text-main-dark group-hover:text-primary transition-colors">Assignment Due Soon</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark">Today, 9:00 AM</p>
+</div>
+</div>
+<button class="text-text-muted-light dark:text-text-muted-dark hover:text-text-main-light dark:hover:text-white transition-colors">
+<span class="material-icons-round">more_vert</span>
+</button>
+</div>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 leading-relaxed">
+                    "History of AI" essay submission deadline is approaching in 24 hours.
+                </p>
+<div class="flex items-center justify-end">
+<a class="text-sm font-semibold text-primary hover:text-purple-700 dark:hover:text-purple-400 flex items-center gap-1" href="#">
+                        Go to Canvas <span class="material-icons-round text-base">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<button class="fixed bottom-6 right-6 lg:hidden w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center z-50 hover:bg-purple-700 transition-colors focus:ring-4 focus:ring-purple-300">
+<span class="material-icons-round text-2xl">add</span>
+</button>
+
+</body></html>

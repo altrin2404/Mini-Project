@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Twin Class Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6B46C1", // A vibrant, cool purple for buttons and accents
+                        "primary-hover": "#5A3A9F",
+                        "background-start": "#4F46E5", // Indigo for gradient start
+                        "background-end": "#A78BFA",   // Lavender for gradient end
+                        "surface-light": "rgba(255, 255, 255, 0.2)", // Translucent white for card
+                        "surface-dark": "rgba(31, 41, 55, 0.4)", // Translucent dark for card
+                        "text-light": "#F8FAFC", // Lighter text for contrast on dark/gradient background
+                        "text-dark": "#E2E8F0", // Slightly darker light text
+                        "text-muted-light": "#CBD5E1", // Muted light text
+                        "text-muted-dark": "#94A3B8", // Muted darker text
+                    },
+                    fontFamily: {
+                        sans: ["Outfit", "sans-serif"], // Set Outfit as the primary sans-serif font
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem", // 12px for modern iOS feel
+                        "xl": "1rem",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 30px rgba(0, 0, 0, 0.1)', // Soft shadow
+                        'glow': '0 0 20px rgba(109, 40, 217, 0.5)', // Purple glow
+                        'icon-3d': '0 10px 20px rgba(0,0,0,0.2), inset 0 0 15px rgba(255,255,255,0.7), inset 0 0 5px rgba(255,255,255,0.5)', // 3D effect with internal glow
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+            background-image: linear-gradient(to bottom right, var(--tw-gradient-from), var(--tw-gradient-to));
+        }.login-card-backdrop {
+            background-color: var(--tw-bg-opacity);
+            backdrop-filter: blur(16px);-webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gradient-to-br from-background-start to-background-end font-sans antialiased min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
+<main class="w-full max-w-sm mx-auto">
+<div class="mb-10 text-center">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white bg-opacity-20 text-white shadow-icon-3d mb-6">
+<span class="material-icons-round text-4xl transform -rotate-12">view_in_ar</span>
+</div>
+<h1 class="text-3xl font-bold text-text-light tracking-tight mb-2">Welcome Back</h1>
+<p class="text-text-muted-light text-sm">Sign in to access your digital twin dashboard</p>
+</div>
+<div class="login-card-backdrop bg-surface-light rounded-xl shadow-soft p-8 w-full border border-white border-opacity-20">
+<form action="#" class="space-y-6" method="POST">
+<div class="space-y-2">
+<label class="block text-sm font-medium text-text-light" for="email">Email Address</label>
+<div class="relative rounded-md shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons-round text-text-muted-light text-lg">mail_outline</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border-white border-opacity-30 rounded-DEFAULT bg-white bg-opacity-10 text-text-light placeholder-text-muted-light focus:ring-primary focus:border-primary transition duration-200 sm:text-sm" id="email" name="email" placeholder="student@university.edu" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="block text-sm font-medium text-text-light" for="password">Password</label>
+</div>
+<div class="relative rounded-md shadow-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons-round text-text-muted-light text-lg">lock_outline</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border-white border-opacity-30 rounded-DEFAULT bg-white bg-opacity-10 text-text-light placeholder-text-muted-light focus:ring-primary focus:border-primary transition duration-200 sm:text-sm" id="password" name="password" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+<span class="material-icons-round text-text-muted-light text-lg hover:text-primary transition-colors">visibility_off</span>
+</div>
+</div>
+<div class="flex justify-end">
+<a class="text-xs font-medium text-primary hover:text-primary-hover" href="#">Forgot password?</a>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-DEFAULT shadow-soft text-sm font-semibold text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-gray-900 transition-all duration-200 transform active:scale-[0.98]" type="submit">
+                        Sign In
+                        <span class="material-icons-round ml-2 text-lg">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<div class="mt-8 text-center space-y-4">
+<p class="text-xs text-text-muted-light">
+                Protected by Digital Twin Security Systems
+            </p>
+</div>
+</main>
+
+</body></html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management - Digital Twin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#6366f1", // Indigo-500 equivalent, fitting the purple vibe
+              "background-light": "#f3f4f6", // Cool gray for light mode
+              "background-dark": "#1e1b4b", // Deep indigo/navy for dark mode
+              "card-light": "#ffffff",
+              "card-dark": "#312e81", // Lighter indigo for cards in dark mode
+              "accent-purple": "#8b5cf6",
+              "glass-white": "rgba(255, 255, 255, 0.1)",
+              "glass-border": "rgba(255, 255, 255, 0.2)",
+            },
+            fontFamily: {
+              display: ["Poppins", "sans-serif"],
+              body: ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.75rem", // 12px
+              'xl': '1rem',      // 16px
+              '2xl': '1.5rem',   // 24px
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-body min-h-screen transition-colors duration-300">
+<header class="lg:hidden flex items-center justify-between p-4 sticky top-0 z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-gray-200 dark:border-indigo-900/50">
+<div class="flex items-center gap-3">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-lg shadow-lg">
+<span class="material-icons-round text-white text-xl">view_in_ar</span>
+</div>
+<h1 class="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-indigo-400 dark:to-purple-300">
+                Digital Twin
+            </h1>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-indigo-800/50 transition-colors" id="menu-toggle">
+<span class="material-icons-round text-gray-600 dark:text-gray-300">menu</span>
+</button>
+</header>
+<div class="flex h-screen overflow-hidden">
+<aside class="fixed inset-y-0 left-0 z-40 w-64 transform -translate-x-full lg:translate-x-0 lg:static lg:block transition-transform duration-300 ease-in-out bg-white dark:bg-card-dark border-r border-gray-200 dark:border-indigo-900/50 flex flex-col shadow-xl lg:shadow-none" id="sidebar">
+<div class="hidden lg:flex items-center gap-3 p-6 border-b border-gray-100 dark:border-indigo-900/30">
+<div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg">
+<span class="material-icons-round text-white text-2xl">view_in_ar</span>
+</div>
+<div>
+<h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-500 dark:from-white dark:to-indigo-200">
+                        Digital Twin
+                    </h1>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Admin Portal</p>
+</div>
+</div>
+<div class="lg:hidden flex justify-end p-4">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-indigo-800/50" id="menu-close">
+<span class="material-icons-round text-gray-500 dark:text-gray-300">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1 no-scrollbar">
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-2">Main Menu</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">dashboard</span>
+                    Admin Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">devices</span>
+                    Digital Twin Monitor
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-purple-500/10 text-indigo-700 dark:text-white dark:from-indigo-600/30 dark:to-purple-600/30 font-medium group" href="#">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 group-hover:text-indigo-600">group</span>
+                    User Management
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">troubleshoot</span>
+                    Risk Engine Monitor
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group justify-between" href="#">
+<div class="flex items-center gap-3">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">notifications</span>
+                        Alerts Management
+                    </div>
+<span class="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">3</span>
+</a>
+<p class="px-4 text-xs font-semibold text-gray-400 dark:text-indigo-400 uppercase tracking-wider mb-2 mt-6">System</p>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">history</span>
+                    Events Audit
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">analytics</span>
+                    Reports &amp; Analytics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">monitor_heart</span>
+                    System Health
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-indigo-800/30 transition-all font-medium group" href="#">
+<span class="material-icons-round text-gray-400 dark:text-indigo-400 group-hover:text-indigo-500">account_circle</span>
+                    Admin Profile
+                </a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-indigo-900/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium" href="#">
+<span class="material-icons-round">logout</span>
+                    Logout
+                </a>
+</div>
+</aside>
+<div class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden backdrop-blur-sm transition-opacity" id="sidebar-overlay"></div>
+<main class="flex-1 h-full overflow-y-auto p-4 lg:p-8 relative">
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-2xl lg:text-3xl font-bold text-gray-800 dark:text-white mb-1">
+                        User Management 🧑‍💻
+                    </h2>
+<p class="text-gray-500 dark:text-indigo-300 text-sm lg:text-base">
+                        Overview of user accounts and recent activities.
+                    </p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold rounded-full border border-green-200 dark:border-green-800 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        System Online
+                    </span>
+<button class="bg-white dark:bg-card-dark border border-gray-200 dark:border-indigo-700 text-gray-600 dark:text-indigo-200 p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+<span class="material-icons-round text-sm">refresh</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6 flex flex-col items-start justify-between">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600 dark:text-indigo-300">
+<span class="material-icons-round text-xl">school</span>
+</div>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Students</h3>
+</div>
+<p class="text-4xl font-bold text-gray-800 dark:text-white mb-4">1,250</p>
+<button class="w-full py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-800/60 transition-colors">
+            Manage Students
+        </button>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6 flex flex-col items-start justify-between">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg text-purple-600 dark:text-purple-300">
+<span class="material-icons-round text-xl">people_alt</span>
+</div>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Parents</h3>
+</div>
+<p class="text-4xl font-bold text-gray-800 dark:text-white mb-4">890</p>
+<button class="w-full py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-800/60 transition-colors">
+            Manage Parents
+        </button>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6 flex flex-col items-start justify-between">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-teal-100 dark:bg-teal-900/30 rounded-lg text-teal-600 dark:text-teal-300">
+<span class="material-icons-round text-xl">person_pin</span>
+</div>
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Teachers</h3>
+</div>
+<p class="text-4xl font-bold text-gray-800 dark:text-white mb-4">75</p>
+<button class="w-full py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-300 text-sm font-medium hover:bg-indigo-100 dark:hover:bg-indigo-800/60 transition-colors">
+            Manage Teachers
+        </button>
+</div>
+</div>
+<div class="bg-white dark:bg-card-dark rounded-2xl shadow-sm border border-gray-100 dark:border-indigo-900/50 p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-semibold text-lg text-gray-800 dark:text-white">Recent User Activity Log</h3>
+<button class="text-sm text-indigo-600 dark:text-indigo-300 hover:underline">View All</button>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<span class="material-icons-round text-indigo-500 dark:text-indigo-300 text-xl">person_add</span>
+<div>
+<p class="text-gray-800 dark:text-white font-medium">New Student Account Created</p>
+<p class="text-xs text-gray-500 dark:text-indigo-300">John Doe <span class="text-gray-400 dark:text-indigo-400">@ 10:30 AM</span></p>
+</div>
+</li>
+<li class="flex items-center gap-4">
+<span class="material-icons-round text-purple-500 dark:text-purple-300 text-xl">assignment_ind</span>
+<div>
+<p class="text-gray-800 dark:text-white font-medium">Role Assigned to Teacher</p>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Sarah Lee - Admin Role <span class="text-gray-400 dark:text-indigo-400">@ Yesterday</span></p>
+</div>
+</li>
+<li class="flex items-center gap-4">
+<span class="material-icons-round text-orange-500 dark:text-orange-300 text-xl">block</span>
+<div>
+<p class="text-gray-800 dark:text-white font-medium">Parent Account Status Changed</p>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Emily White - Deactivated <span class="text-gray-400 dark:text-indigo-400">@ 2 days ago</span></p>
+</div>
+</li>
+<li class="flex items-center gap-4">
+<span class="material-icons-round text-green-500 dark:text-green-300 text-xl">verified_user</span>
+<div>
+<p class="text-gray-800 dark:text-white font-medium">Teacher Account Verified</p>
+<p class="text-xs text-gray-500 dark:text-indigo-300">Mr. Smith <span class="text-gray-400 dark:text-indigo-400">@ 3 days ago</span></p>
+</div>
+</li>
+</ul>
+</div>
+<div class="lg:col-span-3 text-center pt-8 pb-4">
+<p class="text-xs text-gray-400 dark:text-indigo-400/60">
+                        Protected by Digital Twin Security Systems © 2023
+                    </p>
+</div>
+</main>
+</div>
+<script>
+        // Toggle Sidebar Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        function toggleSidebar() {
+            const isHidden = sidebar.classList.contains('-translate-x-full');
+            if (isHidden) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+        menuToggle.addEventListener('click', toggleSidebar);
+        menuClose.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+        // Remove Chart.js specific scripts as they are no longer needed for this view
+        // Chart.js Configuration
+        // Common options
+        // Chart.defaults.color = '#9ca3af';
+        // Chart.defaults.font.family = 'Poppins';
+        // Attendance Line Chart
+        // const ctxAttendance = document.getElementById('attendanceChart').getContext('2d');
+        // const gradientLine = ctxAttendance.createLinearGradient(0, 0, 0, 400);
+        // gradientLine.addColorStop(0, 'rgba(99, 102, 241, 0.5)'); // Indigo
+        // gradientLine.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+        // new Chart(ctxAttendance, {
+        //     type: 'line',
+        //     data: {
+        //         labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+        //         datasets: [{
+        //             label: 'Attendance %',
+        //             data: [98, 95, 92, 96, 88, 94],
+        //             borderColor: '#6366f1',
+        //             backgroundColor: gradientLine,
+        //             borderWidth: 3,
+        //             tension: 0.4,
+        //             pointBackgroundColor: '#fff',
+        //             pointBorderColor: '#6366f1',
+        //             pointRadius: 4,
+        //             fill: true
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         plugins: {
+        //             legend: { display: false }
+        //         },
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: false,
+        //                 min: 80,
+        //                 grid: {
+        //                     color: 'rgba(160, 174, 192, 0.1)',
+        //                     borderDash: [5, 5]
+        //                 }
+        //             },
+        //             x: {
+        //                 grid: {
+        //                     display: false
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
+        // Risk Donut Chart
+        // const ctxRisk = document.getElementById('riskChart').getContext('2d');
+        // new Chart(ctxRisk, {
+        //     type: 'doughnut',
+        //     data: {
+        //         labels: ['Academic', 'Behavioral', 'Social'],
+        //         datasets: [{
+        //             data: [45, 35, 20],
+        //             backgroundColor: [
+        //                 '#6366f1', // Indigo-500
+        //                 '#a855f7', // Purple-500
+        //                 '#2dd4bf'  // Teal-400
+        //             ],
+        //             borderWidth: 0,
+        //             hoverOffset: 4
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //         cutout: '75%',
+        //         plugins: {
+        //             legend: { display: false }
+        //         }
+        //     }
+        // });
+    </script>
+
+</body></html>
